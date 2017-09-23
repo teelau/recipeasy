@@ -1,6 +1,15 @@
+<<<<<<< HEAD
 This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
 
 Below you'll find information about performing common tasks. The most recent version of this guide is available [here](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md).
+=======
+# Recipeasy
+Recipeasy is a Grocery Shopping Assistant which creates an optimized list for simplified shopping trips.
+
+* Gets a list of recieps you can make based on ingredients inputted or are available in your pantry
+* Allows you to choose recipes you are interested in and generates a shopping list based on the ingredients required
+* Provides support for scaling servings and unit conversions 
+>>>>>>> bed0774f72f50664763635cea3ffc47d739b2aaf
 
 ## Table of Contents
 
