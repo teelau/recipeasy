@@ -3,19 +3,21 @@ import { StyleSheet, View, Text, FlatList } from 'react-native';
 
 export default class Results extends React.Component {
   render() {
+    const mockData = [
+      {key: 'Devin'},
+      {key: 'Jackson'},
+      {key: 'James'},
+      {key: 'Joel'},
+      {key: 'John'},
+      {key: 'Jillian'},
+      {key: 'Jimmy'},
+      {key: 'Julie'},
+    ];
+
     return (
       <View style={styles.container}>
         <FlatList
-          data={[
-            {key: 'Devin'},
-            {key: 'Jackson'},
-            {key: 'James'},
-            {key: 'Joel'},
-            {key: 'John'},
-            {key: 'Jillian'},
-            {key: 'Jimmy'},
-            {key: 'Julie'},
-          ]}
+          data={mockData}
           renderItem={({item}) => <Card name={item.key} />}
         />
       </View>
@@ -26,7 +28,8 @@ export default class Results extends React.Component {
 class Card extends React.Component {
   render() {
     return (
-      <View>
+      <View style={styles.card}>
+        <Text style={styles.img}>IMAGE</Text>
         <Text>Name: {this.props.name}</Text>
       </View>
     );
@@ -40,7 +43,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'white',
   },
-  item: {
-
+  card: {
+    margin: 10,
+    backgroundColor: 'lightblue',
+  },
+  img: {
+    alignSelf: 'center',
   },
 });
