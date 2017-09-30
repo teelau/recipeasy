@@ -1,24 +1,30 @@
 import React from 'react';
-import { StyleSheet, View, Text, FlatList } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  FlatList,
+  StatusBar } from 'react-native';
 
 export default class Results extends React.Component {
   render() {
     const mockData = [
-      {key: 'Devin'},
-      {key: 'Jackson'},
-      {key: 'James'},
-      {key: 'Joel'},
-      {key: 'John'},
-      {key: 'Jillian'},
-      {key: 'Jimmy'},
-      {key: 'Julie'},
+      {key: 'Pizza'},
+      {key: 'Burgers'},
+      {key: 'Sushi'},
+      {key: 'Tacos'},
+      {key: 'Omelette'},
+      {key: 'Cookies'},
+      {key: 'Cake'},
+      {key: 'Spaghetti'},
     ];
 
     return (
       <View style={styles.container}>
         <FlatList
           data={mockData}
-          renderItem={({item}) => <Card name={item.key} />}
+          renderItem={({item, index}) => <Card idx={index} name={item.key} />}
         />
       </View>
     )
@@ -27,10 +33,13 @@ export default class Results extends React.Component {
 
 class Card extends React.Component {
   render() {
+    const imgSrc = this.props.idx % 2 === 0 ? require('../img/pizza.png') : require('../img/burgers.png');
     return (
       <View style={styles.card}>
-        <Text style={styles.img}>IMAGE</Text>
-        <Text>Name: {this.props.name}</Text>
+        <View style={styles.imgContainer}>
+          <Image style={styles.bg} source={imgSrc} />
+        </View>
+        <Text style={styles.title}>{this.props.name}</Text>
       </View>
     );
   }
@@ -39,15 +48,26 @@ class Card extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'white',
   },
   card: {
-    margin: 10,
-    backgroundColor: 'lightblue',
+    display: 'flex',
+    margin: 5,
+    borderWidth: 1,
+    borderColor: 'lightgray',
   },
-  img: {
-    alignSelf: 'center',
+  imgContainer: {
+    flex: 2,
+    flexDirection: 'row'
   },
+  bg: {
+    flex: 1,
+    height: 150,
+  },
+  title: {
+    flex: 1,
+  }
 });
