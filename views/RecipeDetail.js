@@ -11,9 +11,11 @@ export default class RecipeDetail extends React.Component {
   }
 
   render() {
-    // const { params } = this.props.navigation.state;
-    <View>
-      <Text>Recipe Detail</Text>
-    </View>
+    const { params } = this.props.navigation.state;
+    return (
+      <View style={{alignSelf: 'center'}}>
+        <Text>Recipe: {params.name}</Text>
+      </View>
+    );
   }
 }

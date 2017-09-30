@@ -12,7 +12,7 @@ export default class Results extends React.Component {
     super(props);
     this.state = {
       isLoading: true,
-      recipes: []
+      recipes: [],
     };
   }
 
@@ -33,9 +33,12 @@ export default class Results extends React.Component {
           };
         });
 
-        this.setState({
-          isLoading: false,
-          recipes: results
+        this.setState((previousState) => {
+          return {
+            ...previousState,
+            isLoading: false,
+            recipes: results,
+          }
         });
 
       })
@@ -45,6 +48,7 @@ export default class Results extends React.Component {
   }
 
   render() {
+    const { navigate } = this.props.navigation;
     if (this.state.isLoading) {
       return (
         <View>
@@ -58,25 +62,10 @@ export default class Results extends React.Component {
         <FlatList
           data={this.state.recipes}
           keyExtractor={(item, index) => item.id}
-          renderItem={this.renderCard}
+          renderItem={({item, index}) => <Card idx={index} pic={item.imgSrc} name={item.key} onPressItem={() => navigate('RecipeDetail', { name: item.key })} />}
         />
       </View>
     );
-  }
-
-  renderCard({item, index}) {
-    return (
-      <Card
-        idx={index}
-        pic={item.imgSrc}
-        name={item.key}
-        onPressItem={this.getDetail}
-      />
-    );
-  }
-
-  getDetail(name) {
-    console.log(`tapped: ${name}`);
   }
 }
 
@@ -87,7 +76,7 @@ class Card extends React.Component {
 
   render() {
     return (
-      <TouchableOpacity onPress={() => console.log(`tapped: ${this.props.name}`)}>
+      <TouchableOpacity onPress={() => this.props.onPressItem(this.props.name)}>
         <View style={styles.card}>
           <View style={styles.imgContainer}>
             <Image style={styles.bg} source={{uri: this.props.pic}} />
