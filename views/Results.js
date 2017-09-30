@@ -5,7 +5,7 @@ import {
   Text,
   Image,
   FlatList,
-  StatusBar } from 'react-native';
+  TouchableOpacity } from 'react-native';
 
 export default class Results extends React.Component {
   constructor(props) {
@@ -40,8 +40,8 @@ export default class Results extends React.Component {
 
       })
       .catch((e) => {
-        console.error(error);
-      })
+        console.error(e);
+      });
   }
 
   render() {
@@ -58,23 +58,43 @@ export default class Results extends React.Component {
         <FlatList
           data={this.state.recipes}
           keyExtractor={(item, index) => item.id}
-          renderItem={({item, index}) => <Card idx={index} pic={item.imgSrc} name={item.key} />}
+          renderItem={this.renderCard}
         />
       </View>
-    )
+    );
+  }
+
+  renderCard({item, index}) {
+    return (
+      <Card
+        idx={index}
+        pic={item.imgSrc}
+        name={item.key}
+        onPressItem={this.getDetail}
+      />
+    );
+  }
+
+  getDetail(name) {
+    console.log(`tapped: ${name}`);
   }
 }
 
 class Card extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
-    // const imgSrc = this.props.idx % 2 === 0 ? require('../img/pizza.png') : require('../img/burgers.png');
     return (
-      <View style={styles.card}>
-        <View style={styles.imgContainer}>
-          <Image style={styles.bg} source={{uri: this.props.pic}} />
+      <TouchableOpacity onPress={() => console.log(`tapped: ${this.props.name}`)}>
+        <View style={styles.card}>
+          <View style={styles.imgContainer}>
+            <Image style={styles.bg} source={{uri: this.props.pic}} />
+          </View>
+          <Text style={styles.title}>{this.props.name}</Text>
         </View>
-        <Text style={styles.title}>{this.props.name}</Text>
-      </View>
+      </TouchableOpacity>
     );
   }
 }
