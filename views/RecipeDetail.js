@@ -17,7 +17,7 @@ export default class RecipeDetail extends React.Component {
     for (let nutrient in mockRecipe.totalNutrients) {
       let n = mockRecipe.totalNutrients[nutrient];
       nutrients.push(
-          <Text key={idx} style={styles.item}>{n.label} {Math.floor(n.quantity)} {n.unit}</Text>
+          <Text key={idx} style={s.item}>{n.label} {Math.floor(n.quantity)} {n.unit}</Text>
       );
       idx++;
     }
@@ -29,27 +29,27 @@ export default class RecipeDetail extends React.Component {
     const { params } = this.props.navigation.state;
     // TO-DO: acquire selected recipe from store here by name
     return (
-      <ScrollView style={styles.container}>
-        <Text style={styles.title}>{mockRecipe.label}</Text>
+      <ScrollView style={s.container}>
+        <Text style={s.title}>{mockRecipe.label}</Text>
         <Image
-          style={styles.img}
+          style={s.img}
           source={{uri: mockRecipe.image}}
         />
-        <View style={styles.ingredientHeader}>
-          <Text style={styles.section}>Ingredients</Text>
-          <Text style={styles.section}>Servings: {mockRecipe.yield}</Text>
+        <View style={s.ingredientHeader}>
+          <Text style={s.section}>Ingredients</Text>
+          <Text style={s.section}>Servings: {mockRecipe.yield}</Text>
         </View>
-        { mockRecipe.ingredients.map((ingredient, index) => <Text style={styles.item} key={index}>{ingredient.text}</Text>) }
-        <Text style={styles.section}>Steps</Text>
+        { mockRecipe.ingredients.map((ingredient, index) => <Text style={s.item} key={index}>{ingredient.text}</Text>) }
+        <Text style={s.section}>Preparation</Text>
         <View>
-          <Text style={styles.item}>1. Roast dat chicken</Text>
-          <Text style={styles.item}>1. Roast dat chicken</Text>
-          <Text style={styles.item}>1. Roast dat chicken</Text>
-          <Text style={styles.item}>1. Roast dat chicken</Text>
-          <Text style={styles.item}>1. Roast dat chicken</Text>
-          <Text style={styles.item}>1. Roast dat chicken</Text>
+          <Text style={s.item}>1. Roast dat chicken</Text>
+          <Text style={s.item}>1. Roast dat chicken</Text>
+          <Text style={s.item}>1. Roast dat chicken</Text>
+          <Text style={s.item}>1. Roast dat chicken</Text>
+          <Text style={s.item}>1. Roast dat chicken</Text>
+          <Text style={s.item}>1. Roast dat chicken</Text>
         </View>
-        <Text style={styles.section}>Nutritional Facts</Text>
+        <Text style={s.section}>Nutritional Facts</Text>
         <View>
           { this.getNutrients() }
         </View>
@@ -58,7 +58,7 @@ export default class RecipeDetail extends React.Component {
   }
 }
 
-const styles = StyleSheet.create({
+const s = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
