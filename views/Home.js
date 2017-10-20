@@ -52,39 +52,14 @@ export default class Home extends React.Component {
   onSubmit() {
     list = this.parseIngredients(this.state.submittedText);
     // check what format this list should be
+    // dispatch action?
     dispatch(updateIngredients(list));
 
   }
 
   parseIngredients(ingredientList) {
-    var a = 1;
+    // parse list of ingredients (split on delimiter?)
   }
-
-  // getRecipes() {
-  //       const query = this.buildQuery(); // { from: 0, to: 3, calories: 1000 };
-  //       let url = 'https://api.edamam.com/search';
-  //       let queryString = '&...'
-  //       const uri = url + queryString;
-  //       fetch(`https://api.edamam.com/search?q=${FOOD}&app_id=${API_ID}&app_key=${API_KEY}&from=0&to=10&calories=gte%20200,%20lte%20300&health=alcohol-free`)
-  //         .then((response) => response.json())
-  //         .then((json) => {
-  //             const hits = json.hits;
-  //             const results = hits.map((hit, index) => {
-  //               const result = {
-  //                   label: hit.recipe.label
-  //               }
-  //               return result
-  //             });
-
-  //             this.setState({
-  //                 results: results,
-  //             });
-
-  //         })
-  //         .catch(error => {
-  //             console.error(error);
-  //         });
-  //   }
 
   handleKeyDown(e) {
     if (e.nativeEvent.key == "Enter") {
