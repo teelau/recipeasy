@@ -1,7 +1,22 @@
 import React from 'react';
-import { StyleSheet, Image, Text, View, Button } from 'react-native';
+import { Dimensions, TextInput, StyleSheet, Image, Text, View, FlatList, Button } from 'react-native';
+import { InputText, InputCountrySelector, InputSwitch } from 'react-native-input-list';
+import { SearchBar } from 'react-native-elements';
 
-export default class App extends React.Component {
+const DEVICE_WIDTH = Dimensions.get(`window`).width
+
+export default class Home extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentText:'',
+      submittedText: '',
+      ingredientList: [],
+      results: []
+    };
+  }
+
   static navigationOptions = {
     title: 'recipeasy'
   }
@@ -10,26 +25,79 @@ export default class App extends React.Component {
     const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
-        <View style={{flex:1, flexDirection: 'row', alignItems: 'center'}}>
-          <Image
-            style={{flex:0.4, resizeMode: 'contain', height: 220}}
-            source={require('../img/sf_spoon.png')}
+        <View style = {styles.searchContainer}>
+          <SearchBar inputStyle = {styles.searchBar}
+            lightTheme
+            onChangeText={(text) => this.setState({currentText: text})}
+            placeholder='Type Here...' 
           />
-          <Image
-            style={{flex:0.6, resizeMode: 'contain', height: 220}}
-            source={require('../img/sf_avocado.png')}
+          <Button
+            title="Find Recipes"
+            onPress={() => this.onSubmit()}
           />
+          <View style={styles.container}>
+            <FlatList
+              data={this.state.results}
+              renderItem={({item}) => <Text style={styles.item}>{item.label}</Text>}
+            />
+          </View>
+
         </View>
-        <Button
-          title="Search"
-          onPress={() => navigate('Results')}
-        />
-      </View>
+        
+        
+        </View>
     );
+  }
+
+  onSubmit() {
+    list = this.parseIngredients(this.state.submittedText);
+    // check what format this list should be
+    dispatch(updateIngredients(list));
+
+  }
+
+  parseIngredients(ingredientList) {
+    var a = 1;
+  }
+
+  // getRecipes() {
+  //       const query = this.buildQuery(); // { from: 0, to: 3, calories: 1000 };
+  //       let url = 'https://api.edamam.com/search';
+  //       let queryString = '&...'
+  //       const uri = url + queryString;
+  //       fetch(`https://api.edamam.com/search?q=${FOOD}&app_id=${API_ID}&app_key=${API_KEY}&from=0&to=10&calories=gte%20200,%20lte%20300&health=alcohol-free`)
+  //         .then((response) => response.json())
+  //         .then((json) => {
+  //             const hits = json.hits;
+  //             const results = hits.map((hit, index) => {
+  //               const result = {
+  //                   label: hit.recipe.label
+  //               }
+  //               return result
+  //             });
+
+  //             this.setState({
+  //                 results: results,
+  //             });
+
+  //         })
+  //         .catch(error => {
+  //             console.error(error);
+  //         });
+  //   }
+
+  handleKeyDown(e) {
+    if (e.nativeEvent.key == "Enter") {
+      this.setState((prevState, props) => {return {ingredients: prevState.ingredientList.push(this.state.currentText), submittedText: this.state.currentText}})
+    }
   }
 }
 
 const styles = StyleSheet.create({
+  searchBar: {
+    width: DEVICE_WIDTH ,
+    height: 50
+  },
   container: {
     flex: 1,
     flexDirection: 'column',
@@ -37,9 +105,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  imageContainer: {
+  searchContainer: {
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: 'column',
     alignItems: 'center',
+    width:500,
   }
 });
