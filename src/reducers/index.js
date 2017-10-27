@@ -1,7 +1,11 @@
-import { combineReducers } from 'redux'
+import { combineReducers } from 'redux';
 
-import ingredientReducer from './IngredientReducer'
+import { NavReducer } from './NavReducer';
+import { IngredientReducer } from './IngredientReducer';
 
-const rootReducer = ingredientReducer
+const rootReducer = combineReducers({
+  NavReducer,
+  IngredientReducer
+});
 
-export default rootReducer
+export default rootReducer;
