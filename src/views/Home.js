@@ -1,39 +1,26 @@
 import React from 'react';
 import { Dimensions, TextInput, StyleSheet, Image, Text, View, FlatList, Button } from 'react-native';
-import { InputText, InputCountrySelector, InputSwitch } from 'react-native-input-list';
 import { SearchBar } from 'react-native-elements';
 
 const DEVICE_WIDTH = Dimensions.get(`window`).width
 
 export default class Home extends React.Component {
-
   constructor(props) {
     super(props);
-    this.state = {
-      currentText:'',
-      submittedText: '',
-      ingredientList: [],
-      results: []
-    };
-  }
-
-  static navigationOptions = {
-    title: 'recipeasy'
+    console.log(props);
   }
 
   render() {
-    const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
-        <View style = {styles.searchContainer}>
-          <SearchBar inputStyle = {styles.searchBar}
+        <View style ={styles.searchContainer}>
+          <SearchBar inputStyle={styles.searchBar}
             lightTheme
             onChangeText={(text) => this.setState({currentText: text})}
             placeholder='Type Here...' 
           />
           <Button
             title="Find Recipes"
-            onPress={() => this.onSubmit()}
           />
           <View style={styles.container}>
             <FlatList
@@ -41,11 +28,8 @@ export default class Home extends React.Component {
               renderItem={({item}) => <Text style={styles.item}>{item.label}</Text>}
             />
           </View>
-
         </View>
-        
-        
-        </View>
+      </View>
     );
   }
 
@@ -53,7 +37,7 @@ export default class Home extends React.Component {
     list = this.parseIngredients(this.state.submittedText);
     // check what format this list should be
     // dispatch action?
-    dispatch(updateIngredients(list));
+    // dispatch(updateIngredients(list));
 
   }
 

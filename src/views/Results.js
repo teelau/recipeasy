@@ -10,10 +10,6 @@ import {
 export default class Results extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      isLoading: true,
-      recipes: [],
-    };
   }
 
   componentDidMount() {
@@ -48,7 +44,6 @@ export default class Results extends React.Component {
   }
 
   render() {
-    const { navigate } = this.props.navigation;
     if (this.state.isLoading) {
       return (
         <View>
@@ -62,7 +57,7 @@ export default class Results extends React.Component {
         <FlatList
           data={this.state.recipes}
           keyExtractor={(item, index) => item.id}
-          renderItem={({item, index}) => <Card idx={index} pic={item.imgSrc} name={item.key} onPressItem={() => navigate('RecipeDetail', { name: item.key })} />}
+          renderItem={({item, index}) => <Card idx={index} pic={item.imgSrc} name={item.key} onPressItem={() => console.log("Pressed Item")} />}
         />
       </View>
     );

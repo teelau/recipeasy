@@ -13,9 +13,8 @@ export const AppNavigator = StackNavigator({
   RecipeDetail: { screen: RecipeDetail }
 });
 
-// App component with navigation state
 const AppWithNavigationState = ({ dispatch, nav }) => (
-	<AppNavigator navigation={addNavigationHelpers({dispatch, state: nav})} />
+	<AppNavigator navigation={addNavigationHelpers({ dispatch, state: nav })} />
 );
 
 AppWithNavigationState.propTypes = {

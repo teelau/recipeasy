@@ -26,7 +26,6 @@ export default class RecipeDetail extends React.Component {
   }
   
   render() {
-    const { params } = this.props.navigation.state;
     // TO-DO: acquire selected recipe from store here by name
     return (
       <ScrollView style={s.container}>
