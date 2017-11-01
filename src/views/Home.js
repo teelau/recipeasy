@@ -1,16 +1,21 @@
 import React from 'react';
-import { Dimensions, TextInput, StyleSheet, Image, Text, View, FlatList, Button } from 'react-native';
-import { SearchBar } from 'react-native-elements';
+import {
+  Dimensions,
+  TextInput,
+  StyleSheet,
+  Image,
+  Text,
+  View,
+  FlatList,
+  Button } from 'react-native';
 
 const DEVICE_WIDTH = Dimensions.get(`window`).width
 
 export default class Home extends React.Component {
   constructor(props) {
     super(props);
-    console.log(props);
     this.state = {currentText: ""};
     this.props = props;
-    // this.onPress = this.onPress.bind(this);
   }
 
   parseIngredients(ingredientList) {
@@ -21,7 +26,6 @@ export default class Home extends React.Component {
     console.log(this.props);
     const { navigate } = this.props.navigation;
     this.props.onSubmitIngredients(this.state.currentText);
-    console.log("Current Text" + this.state.currentText);
     navigate('Results');
 
   }
@@ -29,35 +33,33 @@ export default class Home extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style ={styles.searchContainer}>
-          <SearchBar inputStyle={styles.searchBar}
-            lightTheme
-            onChangeText={(text) => this.setState({currentText: text})}
-            placeholder='Type Here...' 
-          />
-        
-          <Button
-            title="Find Recipes"
-            onPress={() => {this.onPress()}}
-          />
-          <View style={styles.container}>
+
+        <View style={styles.searchContainer}>
+          <Image style={elements.logo} source={require('../img/LogoLarge.png')} />
+          <Text style={elements.hint}>Add some ingredients!</Text>
+
+          <View style={styles.resultsContainer}>
+            <TextInput style={elements.searchBar}
+              onChangeText={(text) => this.setState({currentText: text})}
+              placeholder='Search Ingredients...' 
+            />
             <FlatList
               data={this.state.currentText}
               renderItem={({item}) => <Text style={styles.item}>{item.label}</Text>}
               keyExtractor={(item, index) => index}
             />
           </View>
-          
         </View>
+
+        <Button
+          title="Find Recipes"
+          style={elements.submit}
+          onPress={() => {this.onPress()}}
+        />
+
       </View>
     );
   }
-
-
-
-
-
-  
 
   // handleKeyDown(e) {
   //   if (e.nativeEvent.key == "Enter") {
@@ -67,14 +69,10 @@ export default class Home extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  searchBar: {
-    width: DEVICE_WIDTH ,
-    height: 50
-  },
   container: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: '#fff',
+    backgroundColor: '#F57C00',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -82,6 +80,30 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
-    width:500,
-  }
+    width: 500,
+  },
+  resultsContainer: {
+    flex: 1,
+    flexDirection: 'column'
+  },
+});
+
+const elements = StyleSheet.create({
+  logo: {
+    alignSelf: 'center',
+    height: 250,
+    width: 250,
+  },
+  hint: {
+    color: "#fff",
+    fontSize: 24,
+    marginBottom: 10,
+  },
+  searchBar: {
+    borderWidth: 1,
+    borderColor: 'black',  
+  },
+  submit: {
+    
+  },
 });
