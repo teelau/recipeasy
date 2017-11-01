@@ -6,7 +6,7 @@ import { NavigationActions } from "react-navigation";
 
 import Home from './src/views/Home';
 import HomeContainer from './src/containers/HomeContainer';
-import Results from './src/views/Results';
+import ResultsContainer from './src/containers/ResultsContainer';
 import RecipeDetail from './src/views/RecipeDetail';
 
 import rootReducer from './src/reducers';
@@ -14,7 +14,7 @@ import rootReducer from './src/reducers';
 
 const AppNavigator = StackNavigator({
   Home: { screen: HomeContainer },
-  Results: { screen: Results },
+  Results: { screen: ResultsContainer },
   RecipeDetail: { screen: RecipeDetail }
 });
 

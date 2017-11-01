@@ -1,10 +1,8 @@
-export function IngredientReducer(state = [], action) {
+export function IngredientReducer(state = {}, action) {
 	switch (action.type) {
 		case 'UPDATE_INGREDIENTS':
-			return [
-				...state,
-				{ text: action.text }
-			];
+			state.ingredients = action.text
+			return state;
 		default:
 			return state;
 	}
