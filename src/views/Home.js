@@ -100,8 +100,12 @@ const elements = StyleSheet.create({
     marginBottom: 10,
   },
   searchBar: {
+    width: 300,
+    padding: 2,
+    backgroundColor: '#fff',
+    borderColor: '#fff',
     borderWidth: 1,
-    borderColor: 'black',  
+    borderRadius: 5,
   },
   submit: {
     
