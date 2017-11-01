@@ -8,6 +8,22 @@ export default class Home extends React.Component {
   constructor(props) {
     super(props);
     console.log(props);
+    this.state = {currentText: ""};
+    this.props = props;
+    // this.onPress = this.onPress.bind(this);
+  }
+
+  parseIngredients(ingredientList) {
+    return "TEST TEST";
+  }
+
+  onPress() {
+    console.log(this.props);
+    const { navigate } = this.props.navigation;
+    this.props.onSubmitIngredients(this.state.currentText);
+    console.log(this.state.currentText);
+    navigate('Results');
+
   }
 
   render() {
@@ -19,37 +35,35 @@ export default class Home extends React.Component {
             onChangeText={(text) => this.setState({currentText: text})}
             placeholder='Type Here...' 
           />
+        
           <Button
             title="Find Recipes"
+            onPress={() => {this.onPress()}}
           />
           <View style={styles.container}>
             <FlatList
-              data={this.state.results}
+              data={this.state.currentText}
               renderItem={({item}) => <Text style={styles.item}>{item.label}</Text>}
+              keyExtractor={(item, index) => index}
             />
           </View>
+          
         </View>
       </View>
     );
   }
 
-  onSubmit() {
-    list = this.parseIngredients(this.state.submittedText);
-    // check what format this list should be
-    // dispatch action?
-    // dispatch(updateIngredients(list));
 
-  }
 
-  parseIngredients(ingredientList) {
-    // parse list of ingredients (split on delimiter?)
-  }
 
-  handleKeyDown(e) {
-    if (e.nativeEvent.key == "Enter") {
-      this.setState((prevState, props) => {return {ingredients: prevState.ingredientList.push(this.state.currentText), submittedText: this.state.currentText}})
-    }
-  }
+
+  
+
+  // handleKeyDown(e) {
+  //   if (e.nativeEvent.key == "Enter") {
+  //     this.setState((prevState, props) => {return {ingredients: prevState.ingredientList.push(this.state.currentText), submittedText: this.state.currentText}})
+  //   }
+  // }
 }
 
 const styles = StyleSheet.create({

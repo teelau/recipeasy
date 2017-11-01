@@ -25,5 +25,17 @@
     "react-native-elements": "^0.17.0",
     "react-navigation": "^1.0.0-beta.11",
     "react-redux": "^5.0.6"
-  }
+  },
+  "description": "[![ZenHub](https://raw.githubusercontent.com/ZenHubIO/support/master/zenhub-badge.png)](https://zenhub.com)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ubclaunchpad/recipeasy.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ubclaunchpad/recipeasy/issues"
+  },
+  "homepage": "https://github.com/ubclaunchpad/recipeasy#readme"
 }
