@@ -1,12 +1,13 @@
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+//import * as actions from '../actions';
 import Results from '../views/Results';
 
 const mapStateToProps = state => {
 	return {
-		ingredients : state.ingredients
+		ingredients : state.IngredientReducer.ingredients
 	}
-	console.log("here");
-	console.log(state);
+	
 }
 
 const ResultsContainer = connect(mapStateToProps)(Results)

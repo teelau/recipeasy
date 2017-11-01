@@ -12,15 +12,18 @@ export default class Results extends React.Component {
     super(props);
     console.log(props);
     this.state = {};
+    this.props = props;
     console.log(this.props.ingredients);
   }
 
   componentDidMount() {
     this.getRecipes();
   }
+
+
   
   getRecipes() {
-    fetch('https://api.edamam.com/search?q=chicken&app_id=44e6e955&app_key=7e2bb0a7a3b159b732568229f8c7a473&from=0&to=6&calories=gte%20591,%20lte%20722&health=alcohol-free')
+    fetch('https://api.edamam.com/search?q=' + this.props.ingredients + '&app_id=44e6e955&app_key=7e2bb0a7a3b159b732568229f8c7a473&from=0&to=6&calories=gte%20591,%20lte%20722&health=alcohol-free')
       .then((response) => response.json())
       .then((res) => {
         const hits = res.hits;
