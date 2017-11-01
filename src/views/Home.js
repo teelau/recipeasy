@@ -21,7 +21,7 @@ export default class Home extends React.Component {
     console.log(this.props);
     const { navigate } = this.props.navigation;
     this.props.onSubmitIngredients(this.state.currentText);
-    console.log(this.state.currentText);
+    console.log("Current Text" + this.state.currentText);
     navigate('Results');
 
   }

@@ -10,6 +10,9 @@ import {
 export default class Results extends React.Component {
   constructor(props) {
     super(props);
+    console.log(props);
+    this.state = {};
+    console.log(this.props.ingredients);
   }
 
   componentDidMount() {
