@@ -15,7 +15,9 @@ const MOCK_INGREDIENTS = [{ label: 'green peppers' }, { label: 'eggs' }, { label
 export default class Home extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {currentText: ""};
+    this.state = {
+      ingredients: []
+    };
     this.props = props;
   }
 
@@ -27,7 +29,6 @@ export default class Home extends React.Component {
     const { navigate } = this.props.navigation;
     this.props.onSubmitIngredients(this.state.currentText);
     navigate('Results');
-
   }
 
   render() {
@@ -39,13 +40,15 @@ export default class Home extends React.Component {
           <Text style={elements.hint}>Add some ingredients!</Text>
 
           <View style={styles.resultsContainer}>
-            <TextInput style={elements.searchBar}
-              onChangeText={(text) => this.setState({currentText: text})}
-              placeholder='Search Ingredients...' 
+            <TextInput 
+              style={elements.searchBar}
+              onSubmitEditing={(t) => console.log(t.nativeEvent.text)}
+              placeholder='Search Ingredients...'
+              underlineColorAndroid='transparent'
             />
             <FlatList
               style={{ marginTop: 5 }}
-              data={MOCK_INGREDIENTS}
+              data={this.state.ingredients}
               renderItem={({item}) => <Item label={item.label}/>}
               keyExtractor={(item, index) => index}
             />
