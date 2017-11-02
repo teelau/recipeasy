@@ -9,7 +9,8 @@ import {
   FlatList,
   Button } from 'react-native';
 
-const DEVICE_WIDTH = Dimensions.get(`window`).width
+const DEVICE_WIDTH = Dimensions.get(`window`).width;
+const MOCK_INGREDIENTS = [{ label: 'green peppers' }, { label: 'eggs' }, { label: 'onion' }, { label: 'cheese' }]
 
 export default class Home extends React.Component {
   constructor(props) {
@@ -23,7 +24,6 @@ export default class Home extends React.Component {
   }
 
   onPress() {
-    console.log(this.props);
     const { navigate } = this.props.navigation;
     this.props.onSubmitIngredients(this.state.currentText);
     navigate('Results');
@@ -44,15 +44,16 @@ export default class Home extends React.Component {
               placeholder='Search Ingredients...' 
             />
             <FlatList
-              data={this.state.currentText}
-              renderItem={({item}) => <Text style={styles.item}>{item.label}</Text>}
+              style={{ marginTop: 5 }}
+              data={MOCK_INGREDIENTS}
+              renderItem={({item}) => <Item label={item.label}/>}
               keyExtractor={(item, index) => index}
             />
           </View>
         </View>
 
         <Button
-          title="Find Recipes"
+          title='Find Recipes'
           style={elements.submit}
           onPress={() => {this.onPress()}}
         />
@@ -66,6 +67,17 @@ export default class Home extends React.Component {
   //     this.setState((prevState, props) => {return {ingredients: prevState.ingredientList.push(this.state.currentText), submittedText: this.state.currentText}})
   //   }
   // }
+}
+
+class Item extends React.Component {
+  render() {
+    return (
+      <View style={{ flexDirection: 'row', margin: 5 }}>
+        <Text style={[{ flex: 3}, elements.item]}>{this.props.label}</Text>
+        {/* <Text style={[{ textAlign: 'center', flex: 0.3 }, elements.remove]}>X</Text> */}
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -95,17 +107,32 @@ const elements = StyleSheet.create({
     width: 250,
   },
   hint: {
-    color: "#fff",
+    color: 'white',
     fontSize: 24,
     marginBottom: 10,
   },
   searchBar: {
     width: 300,
-    padding: 2,
-    backgroundColor: '#fff',
-    borderColor: '#fff',
+    padding: 10,
+    backgroundColor: 'white',
+    borderColor: 'white',
     borderWidth: 1,
     borderRadius: 5,
+  },
+  item: {
+    padding: 10,
+    color: 'white',
+    backgroundColor: '#F57C00',
+    borderColor: 'white',
+    borderWidth: 1,
+    borderRadius: 5,
+  },
+  remove: {
+    padding: 2,
+    color: '#F57C00',
+    backgroundColor: 'white',
+    borderColor: '#F57C00',
+    borderRadius: 50
   },
   submit: {
     
