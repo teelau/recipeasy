@@ -95,13 +95,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'white',
+    backgroundColor: '#F57C00',    
   },
   card: {
     display: 'flex',
     margin: 5,
     borderWidth: 1,
     borderColor: 'lightgray',
+    backgroundColor: '#FFE0B2',    
   },
   imgContainer: {
     flex: 2,
@@ -113,6 +114,8 @@ const styles = StyleSheet.create({
   },
   title: {
     flex: 1,
+    fontSize: 16,
+    padding: 5
   }
 });
 

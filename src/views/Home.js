@@ -29,7 +29,7 @@ export default class Home extends React.Component {
 
   onPress() {
     const { navigate } = this.props.navigation;
-    this.props.onSubmitIngredients(this.state.currentText);
+    this.props.onSubmitIngredients('chicken');
     navigate('Results');
   }
 
@@ -57,7 +57,7 @@ export default class Home extends React.Component {
           </View>
         </View>
 
-        <TouchableOpacity onPress={() => console.log('touched')}>
+        <TouchableOpacity onPress={() => this.onPress()}>
           <Text style={elements.submit}>Find Recipes</Text>
         </TouchableOpacity>
 
