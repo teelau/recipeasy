@@ -7,7 +7,8 @@ import {
   Text,
   View,
   FlatList,
-  Button } from 'react-native';
+  Button,
+  TouchableOpacity } from 'react-native';
 
 const DEVICE_WIDTH = Dimensions.get(`window`).width;
 const MOCK_INGREDIENTS = [{ label: 'green peppers' }, { label: 'eggs' }, { label: 'onion' }, { label: 'cheese' }]
@@ -16,6 +17,7 @@ export default class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      currentText: '',
       ingredients: []
     };
     this.props = props;
@@ -55,11 +57,9 @@ export default class Home extends React.Component {
           </View>
         </View>
 
-        <Button
-          title='Find Recipes'
-          style={elements.submit}
-          onPress={() => {this.onPress()}}
-        />
+        <TouchableOpacity onPress={() => console.log('touched')}>
+          <Text style={elements.submit}>Find Recipes</Text>
+        </TouchableOpacity>
 
       </View>
     );
@@ -138,6 +138,11 @@ const elements = StyleSheet.create({
     borderRadius: 50
   },
   submit: {
-    
+    padding: 10,
+    width: DEVICE_WIDTH,
+    fontSize: 28,
+    textAlign: 'center',
+    color: '#F57C00',
+    backgroundColor: '#FFE0B2',
   },
 });
