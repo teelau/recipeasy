@@ -27,9 +27,9 @@ export default class Home extends React.Component {
     return "TEST TEST";
   }
 
-  onPress() {
+  onPress(text) {
     const { navigate } = this.props.navigation;
-    this.props.onSubmitIngredients('chicken');
+    this.props.onSubmitIngredients(text || this.state.currentText);
     navigate('Results');
   }
 
@@ -44,7 +44,8 @@ export default class Home extends React.Component {
           <View style={styles.resultsContainer}>
             <TextInput 
               style={elements.searchBar}
-              onSubmitEditing={(t) => console.log(t.nativeEvent.text)}
+              onChangeText={(t) => this.setState({ currentText: t })}
+              onSubmitEditing={(t) => this.onPress(t.nativeEvent.text)}
               placeholder='Search Ingredients...'
               underlineColorAndroid='transparent'
             />
