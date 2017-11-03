@@ -5,10 +5,8 @@ import RecipeDetail from '../views/RecipeDetail';
 const mapStateToProps = state => {
 	return {
 		recipes : state.RecipeReducer.recipes
-	}
-	
-}
+	};
+};
 
-const RecipeDetailContainer = connect(mapStateToProps)(RecipeDetail)
-
-export default RecipeDetailContainer
+const RecipeDetailContainer = connect(mapStateToProps)(RecipeDetail);
+export default RecipeDetailContainer;

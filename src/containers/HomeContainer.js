@@ -4,19 +4,17 @@ import { updateIngredients } from '../actions/IngredientActions'
 
 const mapStateToProps = state => {
 	return {
-		ingredients : state.ingredients
-	}
-
-}
+		ingredients: state.ingredients
+	};
+};
 
 const mapDispatchToProps = dispatch => {
 	return {
 		onSubmitIngredients: ingredientList => {
 			dispatch(updateIngredients(ingredientList));
 		}
-	}
-}
+	};
+};
 
-const HomeContainer = connect(mapStateToProps, mapDispatchToProps)(Home)
-
-export default HomeContainer
+const HomeContainer = connect(mapStateToProps, mapDispatchToProps)(Home);
+export default HomeContainer;

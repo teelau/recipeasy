@@ -32,7 +32,6 @@ export default class RecipeDetail extends React.Component {
   
   render() {
     const mockRecipe = this.props.recipes.recipe;
-    // TO-DO: acquire selected recipe from store here by name
     return (
       <ScrollView style={s.container}>
         <Text style={s.title}>{mockRecipe.label}</Text>
