@@ -10,18 +10,18 @@ import {
 export default class Results extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      isLoading: true,
-      recipes: [],
-    };
+    this.state = {};
+    this.props = props;
   }
 
   componentDidMount() {
     this.getRecipes();
   }
+
+
   
   getRecipes() {
-    fetch('https://api.edamam.com/search?q=chicken&app_id=44e6e955&app_key=7e2bb0a7a3b159b732568229f8c7a473&from=0&to=6&calories=gte%20591,%20lte%20722&health=alcohol-free')
+    fetch(`https://api.edamam.com/search?q=${this.props.ingredients}&app_id=44e6e955&app_key=7e2bb0a7a3b159b732568229f8c7a473&from=0&to=6&calories=gte%20591,%20lte%20722&health=alcohol-free`)
       .then((response) => response.json())
       .then((res) => {
         const hits = res.hits;
@@ -38,6 +38,7 @@ export default class Results extends React.Component {
             ...previousState,
             isLoading: false,
             recipes: results,
+            recipeObjects: hits
           }
         });
 
@@ -47,8 +48,13 @@ export default class Results extends React.Component {
       });
   }
 
-  render() {
+  onPress(recipeIndex) {
+    this.props.onClickRecipe(this.state.recipeObjects[recipeIndex]);
     const { navigate } = this.props.navigation;
+    navigate('RecipeDetail');
+  }
+
+  render() {
     if (this.state.isLoading) {
       return (
         <View>
@@ -62,7 +68,7 @@ export default class Results extends React.Component {
         <FlatList
           data={this.state.recipes}
           keyExtractor={(item, index) => item.id}
-          renderItem={({item, index}) => <Card idx={index} pic={item.imgSrc} name={item.key} onPressItem={() => navigate('RecipeDetail', { name: item.key })} />}
+          renderItem={({item, index}) => <Card idx={index} pic={item.imgSrc} name={item.key} onPressItem={() => this.onPress(index)} />}
         />
       </View>
     );
@@ -94,13 +100,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'white',
+    backgroundColor: '#F57C00',    
   },
   card: {
     display: 'flex',
     margin: 5,
     borderWidth: 1,
     borderColor: 'lightgray',
+    backgroundColor: '#FFE0B2',    
   },
   imgContainer: {
     flex: 2,
@@ -112,5 +119,8 @@ const styles = StyleSheet.create({
   },
   title: {
     flex: 1,
+    fontSize: 16,
+    padding: 5
   }
 });
+
