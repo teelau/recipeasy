@@ -8,11 +8,9 @@ import {
 
 export default class RecipeDetail extends React.Component {
   constructor(props) {
-    console.log(JSON.stringify(props));
     super(props);
     this.props = props;
     this.state = {};
-    //console.log(JSON.stringify(this.props.recipes));
   }
 
   getNutrients() {
