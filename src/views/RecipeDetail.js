@@ -8,10 +8,15 @@ import {
 
 export default class RecipeDetail extends React.Component {
   constructor(props) {
+    console.log(JSON.stringify(props));
     super(props);
+    this.props = props;
+    this.state = {};
+    //console.log(JSON.stringify(this.props.recipes));
   }
 
   getNutrients() {
+    const mockRecipe = this.props.recipes.recipe;
     let idx = 0;
     let nutrients = [];
     for (let nutrient in mockRecipe.totalNutrients) {
@@ -26,6 +31,7 @@ export default class RecipeDetail extends React.Component {
   }
   
   render() {
+    const mockRecipe = this.props.recipes.recipe;
     // TO-DO: acquire selected recipe from store here by name
     return (
       <ScrollView style={s.container}>
@@ -85,7 +91,8 @@ const s = StyleSheet.create({
   }
 });
 
-const mockRecipe = {
+
+const mockRecipe2 = {
   "uri" : "http://www.edamam.com/ontologies/edamam.owl#recipe_56008870a1e326be7851141fc49bd53e",
   "label" : "Roast Chicken",
   "image" : "https://www.edamam.com/web-img/c24/c24a86f98a8cc1f13f795bdba2dae614.jpg",

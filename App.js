@@ -7,7 +7,7 @@ import { NavigationActions } from "react-navigation";
 import Home from './src/views/Home';
 import HomeContainer from './src/containers/HomeContainer';
 import ResultsContainer from './src/containers/ResultsContainer';
-import RecipeDetail from './src/views/RecipeDetail';
+import RecipeDetailContainer from './src/containers/RecipeDetailContainer';
 
 import rootReducer from './src/reducers';
 // import AppWithNavigationState from './src/navigators/AppNavigator'
@@ -15,7 +15,7 @@ import rootReducer from './src/reducers';
 const AppNavigator = StackNavigator({
   Home: { screen: HomeContainer },
   Results: { screen: ResultsContainer },
-  RecipeDetail: { screen: RecipeDetail }
+  RecipeDetail: { screen: RecipeDetailContainer }
 });
 
 // const initialState = AppNavigator.router.getStateForAction(AppNavigator.router.getActionForPathAndParams('Home'));
