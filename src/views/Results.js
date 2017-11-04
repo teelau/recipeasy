@@ -6,6 +6,7 @@ import {
   Image,
   FlatList,
   TouchableOpacity } from 'react-native';
+import AppStyles from '../../Style';
 
 export default class Results extends React.Component {
   constructor(props) {
@@ -108,14 +109,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F57C00',    
+    backgroundColor: AppStyles.color.darkPrimaryColor,    
   },
   card: {
     display: 'flex',
     margin: 5,
     borderWidth: 1,
     borderColor: 'lightgray',
-    backgroundColor: '#FFE0B2',    
+    backgroundColor: AppStyles.color.lightPrimaryColor,
   },
   imgContainer: {
     flex: 2,
