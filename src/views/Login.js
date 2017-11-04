@@ -7,7 +7,9 @@ import {
     View, 
     Button,
     TouchableOpacity,
-    TextInput, } from 'react-native';
+    TextInput,
+    KeyboardAvoidingView } from 'react-native';
+
 const DEVICE_WIDTH = Dimensions.get(`window`).width;
 
 export default class Login extends React.Component {
@@ -54,54 +56,53 @@ export default class Login extends React.Component {
   render() {
     const { navigate } = this.props.navigation;
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView behavior="padding" style={styles.container}>
         <View>
           <TextInput //username input box
-            style = {styles.inputContainer}   //input text box style
+            underlineColorAndroid = "transparent"
+            style = {[styles.inputContainer, { marginBottom: 0}]}   //input text box style
             placeholder = "username or email" //text place holder words
             placeholderTextColor = "#FFF"     //text place holder color
+            selectionColor = "#FFF"
             onChangeText ={ (usernameInput) => this.setState({usernameInput}) } //change state 
           />
           <TextInput //password input box
+            underlineColorAndroid = "transparent"
             style = {styles.inputContainer}   //input text box style
             placeholder = "password"          //text place holder words
             placeholderTextColor = "#FFF"     //text place holder color
+            selectionColor = "#FFF"
             onChangeText ={ (passwordInput) => this.setState({passwordInput}) } //change state
           />
         </View>
         <TouchableOpacity
           onPress={() => console.log( this.state.usernameInput + ' ' + this.state.passwordInput )}>
-          <Text style = {styles.submit}> create </Text>
+          <Text style = {styles.submit}> login </Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => console.log( this.state.usernameInput + ' ' + this.state.passwordInput )}>
-          <Text style = {styles.submit}> login </Text>
+          <Text style = {[styles.submit, {marginBottom : 0}]}> sign up </Text>
         </TouchableOpacity>
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex:1,
     flexDirection: 'column',
     backgroundColor: '#F57C00',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  imageContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
+    justifyContent: 'flex-end',
   },
   inputContainer: {
-    paddingHorizontal: 10,
-    marginBottom: 10,
+    padding: 10,
+    margin: 10,
     backgroundColor: '#fba'
   },
   submit: {
     padding: 10,
+    marginBottom: 10,
     width: DEVICE_WIDTH,
     fontSize: 28,
     textAlign: 'center',
