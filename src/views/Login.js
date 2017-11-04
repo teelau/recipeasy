@@ -22,25 +22,57 @@ export default class Login extends React.Component {
       passwordInput : ''
     };
   }
+
+  LoginRequest() {
+    return fetch('http://localhost:3000/api/users/login', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: this.state.usernameInput,
+        password: this.state.passwordInput,
+      })
+    })
+  }
+
+  CreateRequest() {
+    return fetch('http://localhost:3000/api/users/create', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: this.state.usernameInput,
+        password: this.state.passwordInput,
+      })
+    })
+  }
  
   render() {
     const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
         <View>
-          <TextInput //
+          <TextInput //username input box
             style = {styles.inputContainer}   //input text box style
             placeholder = "username or email" //text place holder words
             placeholderTextColor = "#FFF"     //text place holder color
             onChangeText ={ (usernameInput) => this.setState({usernameInput}) } //change state 
           />
-          <TextInput 
-            style = {styles.inputContainer}
-            placeholder = "password"
-            placeholderTextColor = "#FFF"
-            onChangeText ={ (passwordInput) => this.setState({passwordInput}) }
+          <TextInput //password input box
+            style = {styles.inputContainer}   //input text box style
+            placeholder = "password"          //text place holder words
+            placeholderTextColor = "#FFF"     //text place holder color
+            onChangeText ={ (passwordInput) => this.setState({passwordInput}) } //change state
           />
         </View>
+        <TouchableOpacity
+          onPress={() => console.log( this.state.usernameInput + ' ' + this.state.passwordInput )}>
+          <Text style = {styles.submit}> create </Text>
+        </TouchableOpacity>
         <TouchableOpacity
           onPress={() => console.log( this.state.usernameInput + ' ' + this.state.passwordInput )}>
           <Text style = {styles.submit}> login </Text>
