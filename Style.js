@@ -11,4 +11,4 @@ export default AppStyles = {
     secondaryTextColor: '#757575',
     dividerColor: '#BDBDBD',
   }
-}
+};
