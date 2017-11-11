@@ -8,7 +8,8 @@ import {
     Button,
     TouchableOpacity,
     TextInput,
-    KeyboardAvoidingView } from 'react-native';
+    KeyboardAvoidingView,
+    StatusBar } from 'react-native';
 
 const DEVICE_WIDTH = Dimensions.get(`window`).width;
 
@@ -25,8 +26,25 @@ export default class Login extends React.Component {
     };
   }
 
-  LoginRequest() {
-    return fetch('http://localhost:3000/api/users/login', {
+  async LoginRequest() {
+    let response = await fetch('http://10.0.2.2:3000/api/users/login', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: this.state.usernameInput,
+        password: this.state.passwordInput,
+      })
+    });
+
+    response = await response.json();
+    console.log(response);
+  }
+
+  CreateRequest() {
+    return fetch('http://10.0.2.2:3000/api/users/create', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -39,24 +57,12 @@ export default class Login extends React.Component {
     })
   }
 
-  CreateRequest() {
-    return fetch('http://localhost:3000/api/users/create', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: this.state.usernameInput,
-        password: this.state.passwordInput,
-      })
-    })
-  }
- 
   render() {
     const { navigate } = this.props.navigation;
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
+      
+      <Image style={elements.logo} source={require('../img/LogoLarge.png')} />
         <View>
           <TextInput //username input box
             underlineColorAndroid = "transparent"
@@ -76,11 +82,11 @@ export default class Login extends React.Component {
           />
         </View>
         <TouchableOpacity
-          onPress={() => console.log( this.state.usernameInput + ' ' + this.state.passwordInput )}>
+          onPress={() => this.LoginRequest()}>
           <Text style = {styles.submit}> login </Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => console.log( this.state.usernameInput + ' ' + this.state.passwordInput )}>
+          onPress={() => this.CreateRequest()}>
           <Text style = {[styles.submit, {marginBottom : 0}]}> sign up </Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
@@ -109,4 +115,12 @@ const styles = StyleSheet.create({
     color: '#F57C00',
     backgroundColor: '#FFE0B2',
   },
+});
+
+const elements = StyleSheet.create({
+  logo: {
+    alignSelf: 'center',
+    height: 250,
+    width: 250,
+  }
 });
