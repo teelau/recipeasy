@@ -10,6 +10,7 @@ import {
   Button,
   TouchableOpacity } from 'react-native';
 import AppStyles from '../../Style';
+import IngredientComponent from './IngredientComponent';
 
 const DEVICE_WIDTH = Dimensions.get(`window`).width;
 const MOCK_INGREDIENTS = [{ label: 'green peppers' }, { label: 'eggs' }, { label: 'onion' }, { label: 'cheese' }]
@@ -30,14 +31,35 @@ export default class Home extends React.Component {
 
   onPress(text) {
     const { navigate } = this.props.navigation;
-    this.props.onSubmitIngredients(text || this.state.currentText);
+    this.props.onSubmitIngredients(this.state.ingredients);
     navigate('Results');
   }
 
+  onEnter(text) {
+    console.log("inside onEnter");
+    console.log(text);
+    console.log(this.state.ingredients);
+    let newIngredients = this.state.ingredients;
+    newIngredients.push(text);
+    this.setState({ingredients: newIngredients});
+    console.log(this.state.ingredients);
+  }
+
+  ingredientsList() {
+    console.log("in ingredients list");
+    console.log(this.state.ingredients);
+    return this.state.ingredients.map((ingredient, index) => {
+      return (
+        <IngredientComponent ingredient = {ingredient} key = {index}/>
+      )
+    });
+  }
+
   render() {
+    console.log("re-rendering");
+    console.log(this.state.ingredients);
     return (
       <View style={styles.container}>
-
         <View style={styles.searchContainer}>
           <Image style={elements.logo} source={require('../img/LogoLarge.png')} />
           <Text style={elements.hint}>Add some ingredients!</Text>
@@ -45,18 +67,15 @@ export default class Home extends React.Component {
           <View style={styles.resultsContainer}>
             <TextInput 
               style={elements.searchBar}
-              onChangeText={(t) => this.setState({ currentText: t })}
-              onSubmitEditing={(t) => this.onPress(t.nativeEvent.text)}
+              onSubmitEditing={(t) => this.onEnter(t.nativeEvent.text)}
               placeholder='Search Ingredients...'
               underlineColorAndroid='transparent'
             />
-            <FlatList
-              style={{ marginTop: 5 }}
-              data={this.state.ingredients}
-              renderItem={({item}) => <Item label={item.label}/>}
-              keyExtractor={(item, index) => index}
-            />
+            
           </View>
+        </View>
+        <View style = {styles.ingredientContainer}>
+          {this.state.ingredients.map((ingredient, index) => <IngredientComponent ingredient = {ingredient} key = {index}/>)}
         </View>
 
         <TouchableOpacity onPress={() => this.onPress()}>
@@ -66,13 +85,8 @@ export default class Home extends React.Component {
       </View>
     );
   }
-
-  // handleKeyDown(e) {
-  //   if (e.nativeEvent.key == "Enter") {
-  //     this.setState((prevState, props) => {return {ingredients: prevState.ingredientList.push(this.state.currentText), submittedText: this.state.currentText}})
-  //   }
-  // }
 }
+//onChangeText={(t) => this.setState({ currentText: t })}
 
 class Item extends React.Component {
   render() {
@@ -92,6 +106,14 @@ const styles = StyleSheet.create({
     backgroundColor: AppStyles.color.darkPrimaryColor,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  ingredientContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    backgroundColor: AppStyles.color.darkPrimaryColor,
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+    width: 300,
   },
   searchContainer: {
     flex: 1,

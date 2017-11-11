@@ -20,8 +20,7 @@ export default class Results extends React.Component {
   }
 
   parseIngredients() {
-    ingredientArray = this.props.ingredients.split(",");
-    ingredientArrayParsed = ingredientArray.map(function(ing) {
+    ingredientArrayParsed = this.props.ingredients.map(function(ing) {
       return ing.replace(/\s/g, '');
     });
     return ingredientArrayParsed.join("-");
@@ -30,7 +29,7 @@ export default class Results extends React.Component {
   
   getRecipes() {
     const ingredientString = this.parseIngredients();
-    fetch(`https://api.edamam.com/search?q=${ingredientString}&app_id=44e6e955&app_key=7e2bb0a7a3b159b732568229f8c7a473&from=0&to=6&calories=gte%20591,%20lte%20722&health=alcohol-free`)
+    fetch(`https://api.edamam.com/search?q=${ingredientString}&app_id=44e6e955&app_key=7e2bb0a7a3b159b732568229f8c7a473&from=0&to=20&calories=gte%20591,%20lte%20722&health=alcohol-free`)
       .then((response) => response.json())
       .then((res) => {
         const hits = res.hits;
