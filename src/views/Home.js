@@ -10,7 +10,7 @@ import {
   Button,
   TouchableOpacity } from 'react-native';
 import AppStyles from '../../Style';
-import IngredientComponent from './IngredientComponent';
+import IngredientComponent from '../components/IngredientComponent';
 
 const DEVICE_WIDTH = Dimensions.get(`window`).width;
 const MOCK_INGREDIENTS = [{ label: 'green peppers' }, { label: 'eggs' }, { label: 'onion' }, { label: 'cheese' }]
