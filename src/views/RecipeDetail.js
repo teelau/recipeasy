@@ -4,13 +4,26 @@ import {
   View,
   Text,
   Image,
-  ScrollView } from 'react-native';
+  ScrollView,
+  TouchableOpacity } from 'react-native';
 
 export default class RecipeDetail extends React.Component {
   constructor(props) {
     super(props);
     this.props = props;
     this.state = {};
+  }
+
+  async save() {
+    const options = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ url: mockRecipe2.uri })
+    };
+
+    const res = await fetch('http://10.0.2.2:3000/api/users/4/favourites', options);
+    const body = await res.json();
+    console.log(body);
   }
 
   getNutrients() {
@@ -32,7 +45,9 @@ export default class RecipeDetail extends React.Component {
     const mockRecipe = this.props.recipes.recipe;
     return (
       <ScrollView style={s.container}>
-        <Text style={s.title}>{mockRecipe.label}</Text>
+        <TouchableOpacity onPress={() => this.save()}>
+          <Text style={s.title}>{mockRecipe.label}</Text>
+        </TouchableOpacity>
         <Image
           style={s.img}
           source={{uri: mockRecipe.image}}
