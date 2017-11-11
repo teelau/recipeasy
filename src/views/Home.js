@@ -9,6 +9,7 @@ import {
   FlatList,
   Button,
   TouchableOpacity } from 'react-native';
+import AppStyles from '../../Style';
 
 const DEVICE_WIDTH = Dimensions.get(`window`).width;
 const MOCK_INGREDIENTS = [{ label: 'green peppers' }, { label: 'eggs' }, { label: 'onion' }, { label: 'cheese' }]
@@ -88,7 +89,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: '#F57C00',
+    backgroundColor: AppStyles.color.darkPrimaryColor,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -126,16 +127,16 @@ const elements = StyleSheet.create({
   item: {
     padding: 10,
     color: 'white',
-    backgroundColor: '#F57C00',
+    backgroundColor: AppStyles.color.darkPrimaryColor,
     borderColor: 'white',
     borderWidth: 1,
     borderRadius: 5,
   },
   remove: {
     padding: 2,
-    color: '#F57C00',
+    color: AppStyles.color.darkPrimaryColor,
     backgroundColor: 'white',
-    borderColor: '#F57C00',
+    borderColor: AppStyles.color.darkPrimaryColor,
     borderRadius: 50
   },
   submit: {
@@ -143,7 +144,7 @@ const elements = StyleSheet.create({
     width: DEVICE_WIDTH,
     fontSize: 28,
     textAlign: 'center',
-    color: '#F57C00',
-    backgroundColor: '#FFE0B2',
+    color: AppStyles.color.darkPrimaryColor,
+    backgroundColor: AppStyles.color.lightPrimaryColor,
   },
 });
