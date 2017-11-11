@@ -40,7 +40,6 @@ export default class Login extends React.Component {
     });
 
     response = await response.json();
-    console.log(response);
   }
 
   CreateRequest() {
@@ -68,16 +67,16 @@ export default class Login extends React.Component {
             underlineColorAndroid = "transparent"
             style = {[styles.inputContainer, { marginBottom: 0}]}   //input text box style
             placeholder = "username or email" //text place holder words
-            placeholderTextColor = "#FFF"     //text place holder color
-            selectionColor = "#FFF"
+            placeholderTextColor = 'white'     //text place holder color
+            selectionColor = 'white'
             onChangeText ={ (usernameInput) => this.setState({usernameInput}) } //change state 
           />
           <TextInput //password input box
             underlineColorAndroid = "transparent"
             style = {styles.inputContainer}   //input text box style
             placeholder = "password"          //text place holder words
-            placeholderTextColor = "#FFF"     //text place holder color
-            selectionColor = "#FFF"
+            placeholderTextColor = 'white'     //text place holder color
+            selectionColor = 'white'
             onChangeText ={ (passwordInput) => this.setState({passwordInput}) } //change state
           />
         </View>
@@ -98,13 +97,13 @@ const styles = StyleSheet.create({
   container: {
     flex:1,
     flexDirection: 'column',
-    backgroundColor: '#F57C00',
+    backgroundColor: AppStyles.color.darkPrimaryColor,
     justifyContent: 'flex-end',
   },
   inputContainer: {
     padding: 10,
     margin: 10,
-    backgroundColor: '#fba'
+    backgroundColor: AppStyles.color.dividerColor
   },
   submit: {
     padding: 10,
@@ -112,8 +111,8 @@ const styles = StyleSheet.create({
     width: DEVICE_WIDTH,
     fontSize: 28,
     textAlign: 'center',
-    color: '#F57C00',
-    backgroundColor: '#FFE0B2',
+    color: AppStyles.color.darkPrimaryColor,
+    backgroundColor: AppStyles.color.lightPrimaryColor,
   },
 });
 
