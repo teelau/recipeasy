@@ -36,28 +36,20 @@ export default class Home extends React.Component {
   }
 
   onEnter(text) {
-    console.log("inside onEnter");
-    console.log(text);
-    console.log(this.state.ingredients);
     let newIngredients = this.state.ingredients;
     newIngredients.push(text);
     this.setState({ingredients: newIngredients});
-    console.log(this.state.ingredients);
   }
 
   ingredientsList() {
-    console.log("in ingredients list");
-    console.log(this.state.ingredients);
     return this.state.ingredients.map((ingredient, index) => {
       return (
-        <IngredientComponent ingredient = {ingredient} key = {index}/>
+        <IngredientComponent ingredient={ingredient} key={index}/>
       )
     });
   }
 
   render() {
-    console.log("re-rendering");
-    console.log(this.state.ingredients);
     return (
       <View style={styles.container}>
         <View style={styles.searchContainer}>

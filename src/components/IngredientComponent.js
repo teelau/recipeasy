@@ -5,13 +5,12 @@ export default class IngredientComponent extends React.Component {
 
 
   constructor(props) {
-    super(props)
+    super(props);
     this.props = props;
   }
 
 
   render() {
-    console.log(this.props);
     return (
       <View style={styles.ingredientContainer}>
         <Text style={elements.ingredientText}>{this.props.ingredient}</Text>
