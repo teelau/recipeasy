@@ -10,6 +10,7 @@ import {
     TextInput,
     KeyboardAvoidingView,
     StatusBar } from 'react-native';
+import AppStyles from '../../Style';
 
 const DEVICE_WIDTH = Dimensions.get(`window`).width;
 
@@ -103,7 +104,7 @@ const styles = StyleSheet.create({
   inputContainer: {
     padding: 10,
     margin: 10,
-    backgroundColor: AppStyles.color.dividerColor
+    backgroundColor: AppStyles.color.dividerColor,
   },
   submit: {
     padding: 10,
