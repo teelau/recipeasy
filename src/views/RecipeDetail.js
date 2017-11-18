@@ -21,9 +21,14 @@ export default class RecipeDetail extends React.Component {
       body: JSON.stringify({ url: mockRecipe2.uri })
     };
 
-    const res = await fetch('http://10.0.2.2:3000/api/users/4/favourites', options);
-    const body = await res.json();
-    console.log(body);
+    try {
+      // need to acquire user id from somewhere...
+      // on login, should receive user id and store it
+      const id = 4;
+      const res = await fetch(`http://10.0.2.2:3000/api/users/${id}/favourites`, options);
+    } catch (e) {
+      // error handling
+    }
   }
 
   getNutrients() {
