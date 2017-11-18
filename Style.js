@@ -17,6 +17,7 @@ export default AppStyles = {
     backgroundColor:'#FFE0B2',
   },
   headerTitleStyle: {
+    alignSelf: 'center',
     fontSize: 20,
   },
 };
