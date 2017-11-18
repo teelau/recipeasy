@@ -8,14 +8,16 @@ import Home from './src/views/Home';
 import HomeContainer from './src/containers/HomeContainer';
 import ResultsContainer from './src/containers/ResultsContainer';
 import RecipeDetailContainer from './src/containers/RecipeDetailContainer';
+import FavRecipes from './src/views/FavRecipes';
 
 import rootReducer from './src/reducers';
 // import AppWithNavigationState from './src/navigators/AppNavigator'
 
 const AppNavigator = StackNavigator({
-  Home: { screen: HomeContainer },
+	Home: { screen: HomeContainer },
   Results: { screen: ResultsContainer },
-  RecipeDetail: { screen: RecipeDetailContainer }
+  RecipeDetail: { screen: RecipeDetailContainer },
+	Favs: { screen: FavRecipes },
 });
 
 // const initialState = AppNavigator.router.getStateForAction(AppNavigator.router.getActionForPathAndParams('Home'));
