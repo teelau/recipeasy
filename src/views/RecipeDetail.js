@@ -18,21 +18,22 @@ export default class RecipeDetail extends React.Component {
     const options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ url: mockRecipe2.uri })
+      body: JSON.stringify({ url: (this.props.recipes && this.props.recipes.recipe) || mockRecipe2.url })
     };
 
     try {
       // need to acquire user id from somewhere...
       // on login, should receive user id and store it
-      const id = 4;
+      const id = 3;
       const res = await fetch(`http://10.0.2.2:3000/api/users/${id}/favourites`, options);
     } catch (e) {
       // error handling
+      console.log(e);
     }
   }
 
   getNutrients() {
-    const mockRecipe = this.props.recipes.recipe;
+    const mockRecipe = (this.props.recipes && this.props.recipes.recipe) || mockRecipe2;
     let idx = 0;
     let nutrients = [];
     for (let nutrient in mockRecipe.totalNutrients) {
@@ -47,11 +48,12 @@ export default class RecipeDetail extends React.Component {
   }
   
   render() {
-    const mockRecipe = this.props.recipes.recipe;
+    const mockRecipe = (this.props.recipes && this.props.recipes.recipe) || mockRecipe2;
     return (
       <ScrollView style={s.container}>
-        <TouchableOpacity onPress={() => this.save()}>
+        <TouchableOpacity style={{ alignSelf: 'center', flexDirection: 'row' }} onPress={() => this.save()}>
           <Text style={s.title}>{mockRecipe.label}</Text>
+          <Text style={{ alignSelf: 'center' }}>{String.fromCharCode(0x2665)}</Text>
         </TouchableOpacity>
         <Image
           style={s.img}
