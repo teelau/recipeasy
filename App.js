@@ -17,6 +17,7 @@ const navigationConfig = {
 		headerTintColor: AppStyles.color.primaryColor,
 		headerStyle: AppStyles.headerStyle,
 		headerTitleStyle: AppStyles.headerTitleStyle,
+		headerBackTitle: null,
 	},
 }
 
@@ -35,9 +36,9 @@ const AppNavigator = StackNavigator({
   },
   RecipeDetail: {
 		screen: RecipeDetailContainer,
-		navigationOptions: {
-			title: 'Recipe Detail',
-		}
+		navigationOptions: ({navigation}) => ({
+			title: '',
+		}),
 	},
 }, navigationConfig);
 
