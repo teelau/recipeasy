@@ -110,7 +110,6 @@ const s = StyleSheet.create({
   }
 });
 
-
 const mockRecipe2 = {
   "uri" : "http://www.edamam.com/ontologies/edamam.owl#recipe_56008870a1e326be7851141fc49bd53e",
   "label" : "Roast Chicken",
