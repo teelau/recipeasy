@@ -15,10 +15,16 @@ export default class RecipeDetail extends React.Component {
   }
 
   async save() {
+    const body = {
+      name: (this.props.recipes && this.props.recipes.recipe && this.props.recipes.recipe.label) || mockRecipe2.label,
+      pic: (this.props.recipes && this.props.recipes.recipe && this.props.recipes.recipe.image) || mockRecipe2.image,
+      url: (this.props.recipes && this.props.recipes.recipe && this.props.recipes.recipe.url) || mockRecipe2.url,
+    }
+
     const options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ url: (this.props.recipes && this.props.recipes.recipe) || mockRecipe2.url })
+      body: JSON.stringify(body)
     };
 
     try {
