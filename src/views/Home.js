@@ -35,6 +35,11 @@ export default class Home extends React.Component {
     navigate('Results');
   }
 
+  goToFavourites() {
+    const { navigate } = this.props.navigation;
+    navigate('Favs');
+  }
+
   onEnter(text) {
     let newIngredients = this.state.ingredients;
     newIngredients.push(text);
