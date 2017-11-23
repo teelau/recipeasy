@@ -4,7 +4,7 @@ import RecipeDetail from '../views/RecipeDetail';
 
 const mapStateToProps = state => {
 	return {
-		recipes : state.RecipeReducer.recipes
+		recipes: state.RecipeReducer.recipes
 	};
 };
 
