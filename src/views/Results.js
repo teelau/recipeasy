@@ -20,9 +20,7 @@ export default class Results extends React.Component {
   }
 
   parseIngredients() {
-    ingredientArrayParsed = this.props.ingredients.map((ing, index) => {
-      return ing.replace(/\s/g, '');
-    });
+    ingredientArrayParsed = this.props.ingredients.map((ing, index) => ing.replace(/\s/g, ''));
     return ingredientArrayParsed.join("-");
   }
 

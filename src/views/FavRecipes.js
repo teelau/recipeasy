@@ -6,7 +6,9 @@ import {
   StyleSheet,
   Image,
   FlatList,
+  TouchableOpacity
 } from 'react-native';
+import AppStyles from '../../Style';
 
 export default class FavRecipes extends React.Component {
   static navigationOptions = {
@@ -43,9 +45,59 @@ export default class FavRecipes extends React.Component {
 
   render() {
     return (
-      <View>
-        {this.state.recipes.map(r => <Text key={r.id}>{r.url}</Text>)}
+      <View style={styles.container}>
+        <FlatList
+          data={this.state.recipes}
+          keyExtractor={(item, index) => item.id}
+          renderItem={({item, index}) => <Card idx={index} pic={item.pic} name={item.name} onPressItem={() => console.log('henlo')} />}
+        />
       </View>
     );
   }
 }
+
+class Card extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <TouchableOpacity onPress={() => this.props.onPressItem(this.props.name)}>
+        <View style={styles.card}>
+          <View style={styles.imgContainer}>
+            <Image style={styles.bg} source={{uri: this.props.pic}} />
+          </View>
+          <Text style={styles.title}>{this.props.name}</Text>
+        </View>
+      </TouchableOpacity>
+    );
+  }
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: AppStyles.color.darkPrimaryColor
+  },
+  card: {
+    display: 'flex',
+    margin: 5,
+    borderWidth: 1,
+    borderColor: 'lightgray',
+    backgroundColor: AppStyles.color.lightPrimaryColor,
+  },
+  imgContainer: {
+    flex: 2,
+    flexDirection: 'row'
+  },
+  bg: {
+    flex: 1,
+    height: 150,
+  },
+  title: {
+    flex: 1,
+    fontSize: 16,
+    padding: 5
+  }
+});
