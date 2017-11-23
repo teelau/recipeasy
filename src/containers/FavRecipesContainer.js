@@ -7,4 +7,4 @@ const mapStateToProps = state => {
 	};
 };
 
-export default connect(mapStateToProps)(FavRecipes);;
+export default connect(mapStateToProps)(FavRecipes);
