@@ -9,12 +9,20 @@ import {
 } from 'react-native';
 
 export default class FavRecipes extends React.Component {
+  static navigationOptions = {
+    title: 'Favourite Recipes',
+  };
+
   constructor(props) {
     super(props);
     this.props = props;
     this.state = {
       recipes: []
     };
+  }
+
+  async componentWillMount() {
+    await this.getFavourites();
   }
 
   async getFavourites() {
@@ -24,10 +32,9 @@ export default class FavRecipes extends React.Component {
     };
 
     try {
-      const id = 3;
-      const response = await fetch(`http://10.0.2.2:3000/api/users/3/favourites`, options);
+      const id = this.props.id || 3;
+      const response = await fetch(`http://10.0.2.2:3000/api/users/${id}/favourites`, options);
       const results = await response.json();
-      console.log(results);
       this.setState({ recipes: results });
     } catch (e) {
       console.log(e);
@@ -37,9 +44,7 @@ export default class FavRecipes extends React.Component {
   render() {
     return (
       <View>
-        <Text>WASSUP</Text>
-        <Button title="Get Favs" onPress={() => this.getFavourites}></Button>
-        {this.state.recipes.map(r => <Text>{r.url}</Text>)}
+        {this.state.recipes.map(r => <Text key={r.id}>{r.url}</Text>)}
       </View>
     );
   }
