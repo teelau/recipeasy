@@ -46,7 +46,7 @@ export default class Results extends React.Component {
         };
       });
     } catch (e) {
-      console.log(e);
+      alert(e);
     }
   }
   
