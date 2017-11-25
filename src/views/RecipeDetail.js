@@ -34,7 +34,7 @@ export default class RecipeDetail extends React.Component {
       const res = await fetch(`http://10.0.2.2:3000/api/users/${id}/favourites`, options);
     } catch (e) {
       // error handling
-      console.log(e);
+      alert(e);
     }
   }
 
