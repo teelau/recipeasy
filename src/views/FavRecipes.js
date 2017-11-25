@@ -39,7 +39,7 @@ export default class FavRecipes extends React.Component {
       const results = await response.json();
       this.setState({ recipes: results });
     } catch (e) {
-      console.log(e);
+      alert(e);
     }
   }
 
