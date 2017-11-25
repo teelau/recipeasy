@@ -8,6 +8,7 @@ import Home from './src/views/Home';
 import HomeContainer from './src/containers/HomeContainer';
 import ResultsContainer from './src/containers/ResultsContainer';
 import RecipeDetailContainer from './src/containers/RecipeDetailContainer';
+import FavRecipesContainer from './src/containers/FavRecipesContainer';
 
 import rootReducer from './src/reducers';
 import AppStyles from './Style';
@@ -40,6 +41,12 @@ const AppNavigator = StackNavigator({
 			title: '',
 		}),
 	},
+  Favs: { 
+    screen: FavRecipesContainer,
+    navigationOptions: {
+      title: 'Favourite Recipes'
+    }
+  },
 }, navigationConfig);
 
 class App extends React.Component {

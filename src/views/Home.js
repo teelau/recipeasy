@@ -35,6 +35,11 @@ export default class Home extends React.Component {
     navigate('Results');
   }
 
+  goToFavourites() {
+    const { navigate } = this.props.navigation;
+    navigate('Favs');
+  }
+
   onEnter(text) {
     let newIngredients = this.state.ingredients;
     newIngredients.push(text);
@@ -66,13 +71,19 @@ export default class Home extends React.Component {
             
           </View>
         </View>
-        <View style = {styles.ingredientContainer}>
-          {this.state.ingredients.map((ingredient, index) => <IngredientComponent ingredient = {ingredient} key = {index}/>)}
+
+        <View style={styles.ingredientContainer}>
+          {this.state.ingredients.map((ingredient, index) => <IngredientComponent ingredient={ingredient} key={index}/>)}
         </View>
 
-        <TouchableOpacity onPress={() => this.onPress()}>
-          <Text style={elements.submit}>Find Recipes</Text>
-        </TouchableOpacity>
+        <View>
+          <TouchableOpacity onPress={() => this.goToFavourites()}>
+            <Text style={elements.submit}>Favourites</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => this.onPress()}>
+            <Text style={elements.submit}>Find Recipes</Text>
+          </TouchableOpacity>
+        </View>
 
       </View>
     );
