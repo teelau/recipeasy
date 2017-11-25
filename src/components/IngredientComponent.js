@@ -15,7 +15,7 @@ export default class IngredientComponent extends React.Component {
         <View style = {[{justifyContent: 'space-around'},{flexDirection: 'row'}]}>
           <Text style={elements.ingredientText}>{this.props.ingredient}</Text>
           <TouchableOpacity
-            onPress={this.props.delete(this.props.ingredient)}>
+            onPress={() => this.props.delete(this.props.ingredient)}>
             <Text> X </Text>
           </TouchableOpacity>
         </View>

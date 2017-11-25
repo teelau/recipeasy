@@ -51,8 +51,8 @@ export default class Home extends React.Component {
 
   DeleteIngredient(ingredient) {
     let index = this.state.ingredients.indexOf(ingredient);
-    let newIngredients = this.state.ingredients.splice(index,1);
-    this.setState({ingredients: newIngredients});
+    this.state.ingredients.splice(index,1);
+    this.setState({ingredients: this.state.ingredients});
   }
 
   render() {
@@ -74,7 +74,7 @@ export default class Home extends React.Component {
 
           <View style = {styles.ingredientContainer}>
           {this.state.ingredients.map((ingredient, index) => 
-            <IngredientComponent ingredient = {ingredient} key = {index} delete = {this.DeleteIngredient}/>)}
+            <IngredientComponent ingredient = {ingredient} key = {index} delete = {() => this.DeleteIngredient()}/>)}
           </View>
           
         </View>
