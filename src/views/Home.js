@@ -73,8 +73,11 @@ export default class Home extends React.Component {
           </View>
 
           <View style = {styles.ingredientContainer}>
-          {this.state.ingredients.map((ingredient, index) => 
-            <IngredientComponent ingredient = {ingredient} key = {index} delete = {() => this.DeleteIngredient()}/>)}
+            {this.state.ingredients.map((ingredient, index) => 
+              <IngredientComponent 
+                ingredient={ingredient} 
+                key={index} 
+                delete={(ingredient) => this.DeleteIngredient(ingredient)}/>)}
           </View>
           
         </View>
