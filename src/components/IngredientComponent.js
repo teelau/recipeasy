@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 export default class IngredientComponent extends React.Component {
 
 
@@ -13,7 +12,13 @@ export default class IngredientComponent extends React.Component {
   render() {
     return (
       <View style={styles.ingredientContainer}>
-        <Text style={elements.ingredientText}>{this.props.ingredient}</Text>
+        <View style = {[{justifyContent: 'space-around'},{flexDirection: 'row'}]}>
+          <Text style={elements.ingredientText}>{this.props.ingredient}</Text>
+          <TouchableOpacity
+            onPress={this.props.delete(this.props.ingredient)}>
+            <Text> X </Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
@@ -27,6 +32,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
+    borderRadius: 50,
     
   },
 });
@@ -34,8 +40,9 @@ const styles = StyleSheet.create({
 const elements = StyleSheet.create({
   ingredientText: {
     color: 'white',
-    fontSize: 12,
-    marginBottom: 10,
+    fontSize: 14,
+    marginTop: 6,
+    marginBottom: 6,
   }
 });
 

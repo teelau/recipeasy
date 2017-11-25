@@ -49,6 +49,12 @@ export default class Home extends React.Component {
     });
   }
 
+  DeleteIngredient(ingredient) {
+    let index = this.state.ingredients.indexOf(ingredient);
+    let newIngredients = this.state.ingredients.splice(index,1);
+    this.setState({ingredients: newIngredients});
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -65,10 +71,14 @@ export default class Home extends React.Component {
             />
             
           </View>
+
+          <View style = {styles.ingredientContainer}>
+          {this.state.ingredients.map((ingredient, index) => 
+            <IngredientComponent ingredient = {ingredient} key = {index} delete = {this.DeleteIngredient}/>)}
+          </View>
+          
         </View>
-        <View style = {styles.ingredientContainer}>
-          {this.state.ingredients.map((ingredient, index) => <IngredientComponent ingredient = {ingredient} key = {index}/>)}
-        </View>
+
 
         <TouchableOpacity onPress={() => this.onPress()}>
           <Text style={elements.submit}>Find Recipes</Text>
