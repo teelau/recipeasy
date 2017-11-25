@@ -1,4 +1,6 @@
-import { StyleSheet } from 'react-native';
+import {
+  StyleSheet,
+} from 'react-native';
 
 export default AppStyles = {
   color: {
@@ -10,5 +12,12 @@ export default AppStyles = {
     primaryTextColor: '#212121',
     secondaryTextColor: '#757575',
     dividerColor: '#BDBDBD',
-  }
+  },
+  headerStyle: {
+    backgroundColor:'#FFE0B2',
+  },
+  headerTitleStyle: {
+    alignSelf: 'center',
+    fontSize: 20,
+  },
 };

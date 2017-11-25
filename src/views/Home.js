@@ -36,6 +36,11 @@ export default class Home extends React.Component {
     navigate('Results');
   }
 
+  goToFavourites() {
+    const { navigate } = this.props.navigation;
+    navigate('Favs');
+  }
+
   onEnter(text) {
     let newIngredients = this.state.ingredients;
     newIngredients.push(text);
@@ -50,9 +55,9 @@ export default class Home extends React.Component {
     });
   }
 
-  DeleteIngredient(ingredient) {
+  deleteIngredient(ingredient) {
     let index = this.state.ingredients.indexOf(ingredient);
-    this.state.ingredients.splice(index,1);
+    this.state.ingredients.splice(index, 1);
     this.setState({ingredients: this.state.ingredients});
   }
 
@@ -78,15 +83,19 @@ export default class Home extends React.Component {
               <IngredientComponent 
                 ingredient={ingredient} 
                 key={index} 
-                delete={(ingredient) => this.DeleteIngredient(ingredient)}/>)}
+                delete={(ingredient) => this.deleteIngredient(ingredient)}/>)}
           </View>
           
         </View>
 
-
-        <TouchableOpacity onPress={() => this.onPress()}>
-          <Text style={elements.submit}>Find Recipes</Text>
-        </TouchableOpacity>
+        <View>
+          <TouchableOpacity onPress={() => this.goToFavourites()}>
+            <Text style={elements.submit}>Favourites</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => this.onPress()}>
+            <Text style={elements.submit}>Find Recipes</Text>
+          </TouchableOpacity>
+        </View>
 
       </View>
     );

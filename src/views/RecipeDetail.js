@@ -15,19 +15,31 @@ export default class RecipeDetail extends React.Component {
   }
 
   async save() {
+    const body = {
+      name: (this.props.recipes && this.props.recipes.recipe && this.props.recipes.recipe.label) || mockRecipe2.label,
+      pic: (this.props.recipes && this.props.recipes.recipe && this.props.recipes.recipe.image) || mockRecipe2.image,
+      url: (this.props.recipes && this.props.recipes.recipe && this.props.recipes.recipe.url) || mockRecipe2.url,
+    }
+
     const options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ url: mockRecipe2.uri })
+      body: JSON.stringify(body)
     };
 
-    const res = await fetch('http://10.0.2.2:3000/api/users/4/favourites', options);
-    const body = await res.json();
-    console.log(body);
+    try {
+      // need to acquire user id from somewhere...
+      // on login, should receive user id and store it
+      const id = 3;
+      const res = await fetch(`http://10.0.2.2:3000/api/users/${id}/favourites`, options);
+    } catch (e) {
+      // error handling
+      alert(e);
+    }
   }
 
   getNutrients() {
-    const mockRecipe = this.props.recipes.recipe;
+    const mockRecipe = (this.props.recipes && this.props.recipes.recipe) || mockRecipe2;
     let idx = 0;
     let nutrients = [];
     for (let nutrient in mockRecipe.totalNutrients) {
@@ -42,11 +54,12 @@ export default class RecipeDetail extends React.Component {
   }
   
   render() {
-    const mockRecipe = this.props.recipes.recipe;
+    const mockRecipe = (this.props.recipes && this.props.recipes.recipe) || mockRecipe2;
     return (
       <ScrollView style={s.container}>
-        <TouchableOpacity onPress={() => this.save()}>
+        <TouchableOpacity style={{ alignSelf: 'center', flexDirection: 'row' }} onPress={() => this.save()}>
           <Text style={s.title}>{mockRecipe.label}</Text>
+          <Text style={{ alignSelf: 'center' }}>{String.fromCharCode(0x2665)}</Text>
         </TouchableOpacity>
         <Image
           style={s.img}
@@ -102,7 +115,6 @@ const s = StyleSheet.create({
     fontSize: 16,
   }
 });
-
 
 const mockRecipe2 = {
   "uri" : "http://www.edamam.com/ontologies/edamam.owl#recipe_56008870a1e326be7851141fc49bd53e",

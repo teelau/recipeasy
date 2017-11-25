@@ -8,17 +8,46 @@ import Home from './src/views/Home';
 import HomeContainer from './src/containers/HomeContainer';
 import ResultsContainer from './src/containers/ResultsContainer';
 import RecipeDetailContainer from './src/containers/RecipeDetailContainer';
+import FavRecipesContainer from './src/containers/FavRecipesContainer';
 
 import rootReducer from './src/reducers';
-// import AppWithNavigationState from './src/navigators/AppNavigator'
+import AppStyles from './Style';
+
+const navigationConfig = {
+	navigationOptions: {
+		headerTintColor: AppStyles.color.primaryColor,
+		headerStyle: AppStyles.headerStyle,
+		headerTitleStyle: AppStyles.headerTitleStyle,
+		headerBackTitle: null,
+	},
+}
 
 const AppNavigator = StackNavigator({
-  Home: { screen: HomeContainer },
-  Results: { screen: ResultsContainer },
-  RecipeDetail: { screen: RecipeDetailContainer }
-});
-
-// const initialState = AppNavigator.router.getStateForAction(AppNavigator.router.getActionForPathAndParams('Home'));
+  Home: {
+		screen: HomeContainer,
+		navigationOptions: {
+			title: 'Recipeasy',
+		}
+	},
+  Results: {
+		screen: ResultsContainer,
+		navigationOptions: {
+			title: 'Results',
+		}
+  },
+  RecipeDetail: {
+		screen: RecipeDetailContainer,
+		navigationOptions: ({navigation}) => ({
+			title: '',
+		}),
+	},
+  Favs: { 
+    screen: FavRecipesContainer,
+    navigationOptions: {
+      title: 'Favourite Recipes'
+    }
+  },
+}, navigationConfig);
 
 class App extends React.Component {
 	store = createStore(rootReducer);
