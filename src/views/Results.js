@@ -75,7 +75,7 @@ export default class Results extends React.Component {
 
       })
       .catch((e) => {
-        console.error(e);
+        alert(e);
       });
   }
 
