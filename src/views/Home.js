@@ -8,7 +8,8 @@ import {
   View,
   FlatList,
   Button,
-  TouchableOpacity } from 'react-native';
+  TouchableOpacity,
+  KeyboardAvoidingView } from 'react-native';
 import AppStyles from '../../Style';
 import IngredientComponent from '../components/IngredientComponent';
 
@@ -54,6 +55,12 @@ export default class Home extends React.Component {
     });
   }
 
+  deleteIngredient(ingredient) {
+    let index = this.state.ingredients.indexOf(ingredient);
+    this.state.ingredients.splice(index, 1);
+    this.setState({ingredients: this.state.ingredients});
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -70,10 +77,15 @@ export default class Home extends React.Component {
             />
             
           </View>
-        </View>
 
-        <View style={styles.ingredientContainer}>
-          {this.state.ingredients.map((ingredient, index) => <IngredientComponent ingredient={ingredient} key={index}/>)}
+          <View style = {styles.ingredientContainer}>
+            {this.state.ingredients.map((ingredient, index) => 
+              <IngredientComponent 
+                ingredient={ingredient} 
+                key={index} 
+                delete={(ingredient) => this.deleteIngredient(ingredient)}/>)}
+          </View>
+          
         </View>
 
         <View>
