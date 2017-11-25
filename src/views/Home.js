@@ -8,7 +8,8 @@ import {
   View,
   FlatList,
   Button,
-  TouchableOpacity } from 'react-native';
+  TouchableOpacity,
+  KeyboardAvoidingView } from 'react-native';
 import AppStyles from '../../Style';
 import IngredientComponent from '../components/IngredientComponent';
 
