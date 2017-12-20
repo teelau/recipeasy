@@ -16,6 +16,7 @@ export default class Results extends React.Component {
   }
 
   componentDidMount() {
+    this.YummlySearch();
     this.getRecipes();
   }
 
@@ -29,6 +30,11 @@ export default class Results extends React.Component {
     try {
       const response = await fetch(`https://api.edamam.com/search?q=${ingredientString}&app_id=44e6e955&app_key=7e2bb0a7a3b159b732568229f8c7a473`);
       const responseJson = await response.json();
+      if (responseJson.hits.length == 0) {
+        alert("No results");
+        return;
+      }
+      
       const results = responseJson.hits.map((hit, index) => {
         return {
           id: index,
@@ -48,6 +54,19 @@ export default class Results extends React.Component {
     } catch (e) {
       alert(e);
     }
+  }
+
+  async YummlySearch() {
+    const options = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Yummly-App-ID': '133899ea',
+        'X-Yummly-App-Key': '9d45e7e56426c6909e8aa11ea431fcef',
+      }
+    };
+
+
   }
 
   onPress(recipeIndex) {
