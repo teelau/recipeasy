@@ -27,7 +27,7 @@ export default class Results extends React.Component {
   async getRecipes() {
     const ingredientString = this.parseIngredients();
     try {
-      const response = await fetch(`https://api.edamam.com/search?q=${ingredientString}&app_id=44e6e955&app_key=7e2bb0a7a3b159b732568229f8c7a473&from=0&to=20&calories=gte%20591,%20lte%20722&health=alcohol-free`);
+      const response = await fetch(`https://api.edamam.com/search?q=${ingredientString}&app_id=44e6e955&app_key=7e2bb0a7a3b159b732568229f8c7a473`);
       const responseJson = await response.json();
       const results = responseJson.hits.map((hit, index) => {
         return {
