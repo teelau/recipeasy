@@ -34,7 +34,7 @@ export default class Results extends React.Component {
         alert("No results");
         return;
       }
-      
+
       const results = responseJson.hits.map((hit, index) => {
         return {
           id: index,
@@ -66,7 +66,9 @@ export default class Results extends React.Component {
       }
     };
 
-
+    const response = await fetch('http://api.yummly.com/v1/api/recipes?requireRecipes=true&allowedIngredient[]=chicken&allowedIngredient[]=garlic', options);
+    const res = await response.json();
+    console.log(res.matches);
   }
 
   onPress(recipeIndex) {
