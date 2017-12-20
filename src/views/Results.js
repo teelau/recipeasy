@@ -8,6 +8,8 @@ import {
   TouchableOpacity } from 'react-native';
 import AppStyles from '../../Style';
 
+import QueryString from 'query-string';
+
 export default class Results extends React.Component {
   constructor(props) {
     super(props);
@@ -66,9 +68,16 @@ export default class Results extends React.Component {
       }
     };
 
-    const response = await fetch('http://api.yummly.com/v1/api/recipes?requireRecipes=true&allowedIngredient[]=chicken&allowedIngredient[]=garlic', options);
+    let ingredientString;
+    if (this.props.ingredients.length > 1) {
+      ingredientString = QueryString.stringify({ allowedIngredient: this.props.ingredients }, { arrayFormat: 'bracket' });
+    } else {
+      ingredientString = `&allowedIngredient[]=${this.props.ingredients[0]}`;
+    }
+
+    const response = await fetch(`http://api.yummly.com/v1/api/recipes?requirePictures=true${ingredientString}`, options);
     const res = await response.json();
-    console.log(res.matches);
+    if (res.matches.length > 0) console.log('Yummly matches found');
   }
 
   onPress(recipeIndex) {
