@@ -9,7 +9,8 @@ import {
     TouchableOpacity,
     TextInput,
     KeyboardAvoidingView,
-    StatusBar } from 'react-native';
+    StatusBar,
+    Platform } from 'react-native';
 import AppStyles from '../../Style';
 
 const DEVICE_WIDTH = Dimensions.get(`window`).width;
@@ -23,9 +24,12 @@ export default class Login extends React.Component {
     super(props);
     this.state = {
       usernameInput : '',
-      passwordInput : ''
+      passwordInput : '',
+      url: Platform.OS === 'ios' ? 'localhost' : '10.0.2.2',
+
     };
     this.props = props;
+    console.log(this.state);
   }
 
   async LoginRequest() {
@@ -33,7 +37,7 @@ export default class Login extends React.Component {
       alert("Username or password cannot be empty");
     } else {
       try {
-      const response = await fetch('http://localhost:3000/api/users/login', {
+      const response = await fetch(`http://${this.state.url}:3000/api/users/login`, {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -66,7 +70,7 @@ export default class Login extends React.Component {
       alert("Username or password cannot be empty");
     } else {
       try {
-        const response = await fetch('http://localhost:3000/api/users/create', {
+        const response = await fetch(`http://${this.state.url}:3000/api/users/create`, {
           method: 'POST',
           headers: {
             'Accept': 'application/json',
