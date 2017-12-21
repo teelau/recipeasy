@@ -5,14 +5,17 @@ import {
   Text,
   Image,
   ScrollView,
-  TouchableOpacity
+  TouchableOpacity,
+  Platform
 } from 'react-native';
 
 export default class RecipeDetail extends React.Component {
   constructor(props) {
     super(props);
     this.props = props;
-    this.state = {};
+    this.state = {
+      url: Platform.OS === 'ios' ? 'localhost' : '10.0.2.2'
+    };
   }
 
   componentDidMount() {
@@ -36,7 +39,7 @@ export default class RecipeDetail extends React.Component {
       // need to acquire user id from somewhere...
       // on login, should receive user id and store it
       const id = 3;
-      const res = await fetch(`http://10.0.2.2:3000/api/users/${id}/favourites`, options);
+      const res = await fetch(`http://${this.state.url}:3000/api/users/${id}/favourites`, options);
     } catch (e) {
       // error handling
       alert(e);
