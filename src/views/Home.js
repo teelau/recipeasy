@@ -65,12 +65,7 @@ export default class Home extends React.Component {
     this.setState({ingredients: this.state.ingredients});
   }
 
-  // onEnter() {
-  //   this.setState({ currentText: '' });
-  // }
-
   render() {
-    console.log('rendering my balls');
     return (
       <View style={styles.container}>
         <View style={styles.searchContainer}>
@@ -81,7 +76,7 @@ export default class Home extends React.Component {
             <TextInput
               value={this.state.currentText}
               style={elements.searchBar}
-              onChangeText={(t) => this.setState({ currentText: t }, () => console.log(this.state))}
+              onChangeText={(t) => this.setState({ currentText: t })}
               onSubmitEditing={() => this.onEnter(this.state.currentText)}
               placeholder='Search Ingredients...'
               underlineColorAndroid='transparent'
