@@ -31,7 +31,6 @@ export default class Login extends React.Component {
 
     };
     this.props = props;
-    console.log(this.state);
   }
 
   componentWillMount() {
@@ -72,7 +71,6 @@ export default class Login extends React.Component {
       if (response.status == 401) {
         alert("Username or password is incorrect");
       } else if (response.status == 200) {
-        console.log(responseJson.id.toString());
         // set async store
         this.setUserId(responseJson.id.toString());
         const { navigate } = this.props.navigation;
