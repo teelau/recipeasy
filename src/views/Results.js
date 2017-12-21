@@ -5,8 +5,11 @@ import {
   Text,
   Image,
   FlatList,
-  TouchableOpacity } from 'react-native';
+  TouchableOpacity
+} from 'react-native';
 import AppStyles from '../../Style';
+
+import QueryString from 'query-string';
 
 export default class Results extends React.Component {
   constructor(props) {
@@ -16,67 +19,50 @@ export default class Results extends React.Component {
   }
 
   componentDidMount() {
-    this.getRecipes();
+    this.YummlySearch();
   }
 
-  parseIngredients() {
-    ingredientArrayParsed = this.props.ingredients.map((ing, index) => ing.replace(/\s/g, ''));
-    return ingredientArrayParsed.join("-");
-  }
+  async YummlySearch() {
+    const options = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Yummly-App-ID': '133899ea',
+        'X-Yummly-App-Key': '9d45e7e56426c6909e8aa11ea431fcef',
+      }
+    };
 
-  async getRecipes2() {
-    const ingredientString = this.parseIngredients();
-    try {
-      const response = await fetch(`https://api.edamam.com/search?q=${ingredientString}&app_id=44e6e955&app_key=7e2bb0a7a3b159b732568229f8c7a473&from=0&to=20&calories=gte%20591,%20lte%20722&health=alcohol-free`);
-      const responseJson = await response.json();
-      const results = responseJson.hits.map((hit, index) => {
+    let ingredientString;
+    if (this.props.ingredients.length > 1) {
+      ingredientString = QueryString.stringify({ allowedIngredient: this.props.ingredients }, { arrayFormat: 'bracket' });
+    } else {
+      ingredientString = `&allowedIngredient[]=${this.props.ingredients[0]}`;
+    }
+
+    const response = await fetch(`http://api.yummly.com/v1/api/recipes?requirePictures=true${ingredientString}`, options);
+    const res = await response.json();
+    if (res.matches.length > 0) {
+      const matches = res.matches.map((hit, index) => {
         return {
           id: index,
-          key: hit.recipe.label,
-          imgSrc: hit.recipe.image,
+          yummly: hit.id,
+          key: hit.recipeName,
+          imgSrc: hit.smallImageUrls[0]
         };
       });
-  
+
       this.setState((previousState) => {
         return {
           ...previousState,
           isLoading: false,
-          recipes: results,
-          recipeObjects: hits
+          recipes: matches,
+          recipeObjects: res.matches
         };
       });
-    } catch (e) {
-      alert(e);
+
+    } else {
+      alert('no results');
     }
-  }
-  
-  getRecipes() {
-    const ingredientString = this.parseIngredients();
-    fetch(`https://api.edamam.com/search?q=${ingredientString}&app_id=44e6e955&app_key=7e2bb0a7a3b159b732568229f8c7a473&from=0&to=20&calories=gte%20591,%20lte%20722&health=alcohol-free`)
-      .then((response) => response.json())
-      .then((res) => {
-        const hits = res.hits;
-        const results = hits.map((hit, index) => {
-          return {
-            id: index,
-            key: hit.recipe.label,
-            imgSrc: hit.recipe.image,
-          };
-        });
-
-        this.setState((previousState) => {
-          return {
-            ...previousState,
-            isLoading: false,
-            recipes: results,
-            recipeObjects: hits
-          }
-        });
-
-      })
-      .catch((e) => {
-        alert(e);
-      });
   }
 
   onPress(recipeIndex) {
@@ -89,7 +75,7 @@ export default class Results extends React.Component {
     if (this.state.isLoading) {
       return (
         <View>
-          <Text style={{alignSelf: 'center'}}>Loading...</Text>
+          <Text style={{ alignSelf: 'center' }}>Loading...</Text>
         </View>
       );
     }
@@ -99,7 +85,7 @@ export default class Results extends React.Component {
         <FlatList
           data={this.state.recipes}
           keyExtractor={(item, index) => item.id}
-          renderItem={({item, index}) => <Card idx={index} pic={item.imgSrc} name={item.key} onPressItem={() => this.onPress(index)} />}
+          renderItem={({ item, index }) => <Card idx={index} yummly={item.yummly} pic={item.imgSrc} name={item.key} onPressItem={() => this.onPress(index)} />}
         />
       </View>
     );
@@ -109,6 +95,26 @@ export default class Results extends React.Component {
 class Card extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {};
+  }
+
+  componentWillMount() {
+    this.getHiResImage();
+  }
+
+  async getHiResImage() {
+    const options = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Yummly-App-ID': '133899ea',
+        'X-Yummly-App-Key': '9d45e7e56426c6909e8aa11ea431fcef',
+      }
+    };
+
+    const response = await fetch(`http://api.yummly.com/v1/api/recipe/${this.props.yummly}`, options);
+    const res = await response.json();
+    this.setState({ img: res.images[0].hostedMediumUrl || res.images[0].hostedSmallUrl });
   }
 
   render() {
@@ -116,7 +122,7 @@ class Card extends React.Component {
       <TouchableOpacity onPress={() => this.props.onPressItem(this.props.name)}>
         <View style={styles.card}>
           <View style={styles.imgContainer}>
-            <Image style={styles.bg} source={{uri: this.props.pic}} />
+            <Image style={styles.bg} source={{ uri: this.state.img || this.props.pic }} />
           </View>
           <Text style={styles.title}>{this.props.name}</Text>
         </View>
@@ -131,7 +137,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: AppStyles.color.darkPrimaryColor,    
+    backgroundColor: AppStyles.color.darkPrimaryColor,
   },
   card: {
     display: 'flex',
