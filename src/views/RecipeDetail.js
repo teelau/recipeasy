@@ -54,22 +54,22 @@ export default class RecipeDetail extends React.Component {
   }
   
   render() {
-    const mockRecipe = (this.props.recipes && this.props.recipes.recipe) || mockRecipe2;
+    const mockRecipe = this.props.recipes || mockRecipe2;
     return (
       <ScrollView style={s.container}>
         <TouchableOpacity style={{ alignSelf: 'center', flexDirection: 'row' }} onPress={() => this.save()}>
-          <Text style={s.title}>{mockRecipe.label}</Text>
+          <Text style={s.title}>{mockRecipe.recipeName}</Text>
           <Text style={{ alignSelf: 'center' }}>{String.fromCharCode(0x2665)}</Text>
         </TouchableOpacity>
         <Image
           style={s.img}
-          source={{uri: mockRecipe.image}}
+          source={{uri: mockRecipe.smallImageUrls[0]}}
         />
         <View style={s.ingredientHeader}>
           <Text style={s.section}>Ingredients</Text>
-          <Text style={s.section}>Servings: {mockRecipe.yield}</Text>
+          <Text style={s.section}>Servings: {mockRecipe.yield || 0}</Text>
         </View>
-        { mockRecipe.ingredients.map((ingredient, index) => <Text style={s.item} key={index}>{ingredient.text}</Text>) }
+        { mockRecipe.ingredients.map((ingredient, index) => <Text style={s.item} key={index}>{ingredient}</Text>) }
         <Text style={s.section}>Preparation</Text>
         <View>
           <Text style={s.item}>1. Roast dat chicken</Text>
@@ -79,9 +79,9 @@ export default class RecipeDetail extends React.Component {
           <Text style={s.item}>1. Roast dat chicken</Text>
           <Text style={s.item}>1. Roast dat chicken</Text>
         </View>
-        <Text style={s.section}>Nutritional Facts</Text>
+        {/* <Text style={s.section}>Nutritional Facts</Text> */}
         <View>
-          { this.getNutrients() }
+          {/* { this.getNutrients() } */}
         </View>
       </ScrollView>
     );
