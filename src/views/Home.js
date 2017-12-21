@@ -42,9 +42,13 @@ export default class Home extends React.Component {
   }
 
   onEnter(text) {
-    let newIngredients = this.state.ingredients;
-    newIngredients.push(text);
-    this.setState({ingredients: newIngredients});
+    this.setState({ currentText: '' });
+    text = text.trim();
+    if(text.length != 0){
+      let newIngredients = this.state.ingredients;
+      newIngredients.push(text);
+      this.setState({ingredients: newIngredients});
+    }
   }
 
   ingredientsList() {
@@ -69,9 +73,11 @@ export default class Home extends React.Component {
           <Text style={elements.hint}>Add some ingredients!</Text>
 
           <View style={styles.resultsContainer}>
-            <TextInput 
+            <TextInput
+              value={this.state.currentText}
               style={elements.searchBar}
-              onSubmitEditing={(t) => this.onEnter(t.nativeEvent.text)}
+              onChangeText={(t) => this.setState({ currentText: t })}
+              onSubmitEditing={() => this.onEnter(this.state.currentText)}
               placeholder='Search Ingredients...'
               underlineColorAndroid='transparent'
             />
