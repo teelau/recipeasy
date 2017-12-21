@@ -14,11 +14,15 @@ export default class RecipeDetail extends React.Component {
     this.state = {};
   }
 
+  componentDidMount() {
+    this.getRecipe();
+  }
+
   async save() {
     const body = {
-      name: (this.props.recipes && this.props.recipes.recipe && this.props.recipes.recipe.label) || mockRecipe2.label,
-      pic: (this.props.recipes && this.props.recipes.recipe && this.props.recipes.recipe.image) || mockRecipe2.image,
-      url: (this.props.recipes && this.props.recipes.recipe && this.props.recipes.recipe.url) || mockRecipe2.url,
+      name: this.props.recipes || mockRecipe2.label,
+      pic: this.props.recipes || mockRecipe2.image,
+      url: this.props.recipes || mockRecipe2.url,
     }
 
     const options = {
@@ -36,6 +40,22 @@ export default class RecipeDetail extends React.Component {
       // error handling
       alert(e);
     }
+  }
+
+  async getRecipe() {
+    const options = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Yummly-App-ID': '133899ea',
+        'X-Yummly-App-Key': '9d45e7e56426c6909e8aa11ea431fcef',
+      }
+    };
+
+    const recipeId = this.props.recipes.id;
+    const response = await fetch(`http://api.yummly.com/v1/api/recipe/${recipeId}`, options);
+    const res = await response.json();
+    console.log(res);
   }
 
   getNutrients() {
