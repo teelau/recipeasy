@@ -43,7 +43,7 @@ export default class Home extends React.Component {
 
   onEnter(text) {
     this.setState({ currentText: '' });
-    text = text.trim(text);
+    text = text.trim();
     if(text.length != 0){
       let newIngredients = this.state.ingredients;
       newIngredients.push(text);
