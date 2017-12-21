@@ -45,6 +45,7 @@ export default class Results extends React.Component {
       const matches = res.matches.map((hit, index) => {
         return {
           id: index,
+          yummly: hit.id,
           key: hit.recipeName,
           imgSrc: hit.smallImageUrls[0]
         };
@@ -84,7 +85,7 @@ export default class Results extends React.Component {
         <FlatList
           data={this.state.recipes}
           keyExtractor={(item, index) => item.id}
-          renderItem={({ item, index }) => <Card idx={index} pic={item.imgSrc} name={item.key} onPressItem={() => this.onPress(index)} />}
+          renderItem={({ item, index }) => <Card idx={index} yummly={item.yummly} pic={item.imgSrc} name={item.key} onPressItem={() => this.onPress(index)} />}
         />
       </View>
     );
@@ -94,6 +95,26 @@ export default class Results extends React.Component {
 class Card extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {};
+  }
+
+  componentWillMount() {
+    this.getHiResImage();
+  }
+
+  async getHiResImage() {
+    const options = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Yummly-App-ID': '133899ea',
+        'X-Yummly-App-Key': '9d45e7e56426c6909e8aa11ea431fcef',
+      }
+    };
+
+    const response = await fetch(`http://api.yummly.com/v1/api/recipe/${this.props.yummly}`, options);
+    const res = await response.json();
+    this.setState({ img: res.images[0].hostedMediumUrl || res.images[0].hostedSmallUrl });
   }
 
   render() {
@@ -101,7 +122,7 @@ class Card extends React.Component {
       <TouchableOpacity onPress={() => this.props.onPressItem(this.props.name)}>
         <View style={styles.card}>
           <View style={styles.imgContainer}>
-            <Image style={styles.bg} source={{ uri: this.props.pic }} />
+            <Image style={styles.bg} source={{ uri: this.state.img || this.props.pic }} />
           </View>
           <Text style={styles.title}>{this.props.name}</Text>
         </View>
