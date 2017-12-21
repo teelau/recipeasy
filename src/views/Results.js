@@ -5,7 +5,8 @@ import {
   Text,
   Image,
   FlatList,
-  TouchableOpacity } from 'react-native';
+  TouchableOpacity
+} from 'react-native';
 import AppStyles from '../../Style';
 
 import QueryString from 'query-string';
@@ -19,7 +20,7 @@ export default class Results extends React.Component {
 
   componentDidMount() {
     this.YummlySearch();
-    this.getRecipes();
+    // this.getRecipes();
   }
 
   parseIngredients() {
@@ -44,7 +45,7 @@ export default class Results extends React.Component {
           imgSrc: hit.recipe.image,
         };
       });
-  
+
       this.setState((previousState) => {
         return {
           ...previousState,
@@ -77,7 +78,27 @@ export default class Results extends React.Component {
 
     const response = await fetch(`http://api.yummly.com/v1/api/recipes?requirePictures=true${ingredientString}`, options);
     const res = await response.json();
-    if (res.matches.length > 0) console.log('Yummly matches found');
+    if (res.matches.length > 0) {
+      const matches = res.matches.map((hit, index) => {
+        return {
+          id: index,
+          key: hit.recipeName,
+          imgSrc: hit.smallImageUrls[0]
+        };
+      });
+
+      this.setState((previousState) => {
+        return {
+          ...previousState,
+          isLoading: false,
+          recipes: matches,
+          recipeObjects: res.matches
+        };
+      });
+
+    } else {
+      alert('no results');
+    }
   }
 
   onPress(recipeIndex) {
@@ -90,7 +111,7 @@ export default class Results extends React.Component {
     if (this.state.isLoading) {
       return (
         <View>
-          <Text style={{alignSelf: 'center'}}>Loading...</Text>
+          <Text style={{ alignSelf: 'center' }}>Loading...</Text>
         </View>
       );
     }
@@ -100,7 +121,7 @@ export default class Results extends React.Component {
         <FlatList
           data={this.state.recipes}
           keyExtractor={(item, index) => item.id}
-          renderItem={({item, index}) => <Card idx={index} pic={item.imgSrc} name={item.key} onPressItem={() => this.onPress(index)} />}
+          renderItem={({ item, index }) => <Card idx={index} pic={item.imgSrc} name={item.key} onPressItem={() => this.onPress(index)} />}
         />
       </View>
     );
@@ -117,7 +138,7 @@ class Card extends React.Component {
       <TouchableOpacity onPress={() => this.props.onPressItem(this.props.name)}>
         <View style={styles.card}>
           <View style={styles.imgContainer}>
-            <Image style={styles.bg} source={{uri: this.props.pic}} />
+            <Image style={styles.bg} source={{ uri: this.props.pic }} />
           </View>
           <Text style={styles.title}>{this.props.name}</Text>
         </View>
@@ -132,7 +153,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: AppStyles.color.darkPrimaryColor,    
+    backgroundColor: AppStyles.color.darkPrimaryColor,
   },
   card: {
     display: 'flex',
