@@ -20,43 +20,6 @@ export default class Results extends React.Component {
 
   componentDidMount() {
     this.YummlySearch();
-    // this.getRecipes();
-  }
-
-  parseIngredients() {
-    ingredientArrayParsed = this.props.ingredients.map((ing, index) => ing.replace(/\s/g, ''));
-    return ingredientArrayParsed.join("-");
-  }
-
-  async getRecipes() {
-    const ingredientString = this.parseIngredients();
-    try {
-      const response = await fetch(`https://api.edamam.com/search?q=${ingredientString}&app_id=44e6e955&app_key=7e2bb0a7a3b159b732568229f8c7a473`);
-      const responseJson = await response.json();
-      if (responseJson.hits.length == 0) {
-        alert("No results");
-        return;
-      }
-
-      const results = responseJson.hits.map((hit, index) => {
-        return {
-          id: index,
-          key: hit.recipe.label,
-          imgSrc: hit.recipe.image,
-        };
-      });
-
-      this.setState((previousState) => {
-        return {
-          ...previousState,
-          isLoading: false,
-          recipes: results,
-          recipeObjects: responseJson.hits
-        };
-      });
-    } catch (e) {
-      alert(e);
-    }
   }
 
   async YummlySearch() {
