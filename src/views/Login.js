@@ -25,36 +25,70 @@ export default class Login extends React.Component {
       usernameInput : '',
       passwordInput : ''
     };
+    this.props = props;
   }
 
   async LoginRequest() {
-    let response = await fetch('http://10.0.2.2:3000/api/users/login', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: this.state.usernameInput,
-        password: this.state.passwordInput,
-      })
-    });
+    if (this.state.usernameInput.length == 0 || this.state.passwordInput.length == 0) {
+      alert("Username or password cannot be empty");
+    } else {
+      try {
+      const response = await fetch('http://localhost:3000/api/users/login', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: this.state.usernameInput,
+          password: this.state.passwordInput,
+        })
+      });
+      const responseJson = await response.json();
+      if (response.status == 401) {
+        alert("Username or password is incorrect");
+      } else if (response.status == 200) {
+        const { navigate } = this.props.navigation;
+        navigate('Home');
+      }
 
-    response = await response.json();
+    } catch (e) {
+      alert (e);
+    }
+
+    }
+
+
   }
 
-  CreateRequest() {
-    return fetch('http://10.0.2.2:3000/api/users/create', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: this.state.usernameInput,
-        password: this.state.passwordInput,
-      })
-    })
+  async CreateRequest() {
+    if (this.state.usernameInput.length == 0 || this.state.passwordInput.length == 0) {
+      alert("Username or password cannot be empty");
+    } else {
+      try {
+        const response = await fetch('http://localhost:3000/api/users/create', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: this.state.usernameInput,
+            password: this.state.passwordInput,
+          })
+        });
+
+        if (response.status == 400 || response.status == 500) {
+          alert("Could not create user");
+        } else if (response.status == 200) {
+          alert("Created user");
+        }
+
+      } catch (e) {
+        alert (e);
+      }
+    }
+    
   }
 
   render() {
