@@ -9,6 +9,7 @@ import HomeContainer from './src/containers/HomeContainer';
 import ResultsContainer from './src/containers/ResultsContainer';
 import RecipeDetailContainer from './src/containers/RecipeDetailContainer';
 import FavRecipesContainer from './src/containers/FavRecipesContainer';
+import Login from './src/views/Login';
 
 import rootReducer from './src/reducers';
 import AppStyles from './Style';
@@ -23,6 +24,12 @@ const navigationConfig = {
 }
 
 const AppNavigator = StackNavigator({
+	Login: {
+		screen: Login,
+		navigationOptions: {
+			title: 'Recipeasy',
+		}
+	},
   Home: {
 		screen: HomeContainer,
 		navigationOptions: {
