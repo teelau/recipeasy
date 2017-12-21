@@ -10,7 +10,8 @@ import {
     TextInput,
     KeyboardAvoidingView,
     StatusBar,
-    Platform } from 'react-native';
+    Platform,
+    AsyncStorage } from 'react-native';
 import AppStyles from '../../Style';
 
 const DEVICE_WIDTH = Dimensions.get(`window`).width;
@@ -26,10 +27,28 @@ export default class Login extends React.Component {
       usernameInput : '',
       passwordInput : '',
       url: Platform.OS === 'ios' ? 'localhost' : '10.0.2.2',
+      userId: '',
 
     };
     this.props = props;
-    console.log(this.state);
+  }
+
+  componentWillMount() {
+    // check for id in local storage
+    AsyncStorage.getItem('userId').then((value) => this.setState({userId: value}, () => this.redirectToHome()));
+  }
+
+  redirectToHome() {
+    if (this.state.userId != '') {
+      const { navigate } = this.props.navigation;
+      navigate('Home');
+    }
+  }
+
+
+  setUserId(value) {
+    AsyncStorage.setItem('userId', value);
+    this.setState({userId: value});
   }
 
   async LoginRequest() {
@@ -52,6 +71,8 @@ export default class Login extends React.Component {
       if (response.status == 401) {
         alert("Username or password is incorrect");
       } else if (response.status == 200) {
+        // set async store
+        this.setUserId(responseJson.id.toString());
         const { navigate } = this.props.navigation;
         navigate('Home');
       }
