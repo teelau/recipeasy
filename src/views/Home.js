@@ -9,7 +9,8 @@ import {
   FlatList,
   Button,
   TouchableOpacity,
-  KeyboardAvoidingView } from 'react-native';
+  KeyboardAvoidingView,
+  AsyncStorage } from 'react-native';
 import AppStyles from '../../Style';
 import IngredientComponent from '../components/IngredientComponent';
 
