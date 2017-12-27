@@ -32,14 +32,17 @@ export default class FavRecipes extends React.Component {
   }
 
   async getFavourites() {
-    // TO-DO: id null check
+    if (!this.state.id) {
+      alert('no id');
+      return;
+    }
     const options = {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     };
 
     try {
-      const response = await fetch(`http://${this.state.url}:3000/api/users/${this.state.id || 3}/favourites`, options);
+      const response = await fetch(`http://${this.state.url}:3000/api/users/${this.state.id}/favourites`, options);
       const results = await response.json();
       this.setState({ recipes: results });
     } catch (e) {
