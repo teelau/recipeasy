@@ -29,7 +29,7 @@ export default class RecipeDetail extends React.Component {
       alert('no id');
       return;
     }
-    
+
     const recipe = this.state.recipe;
     const body = {
       name: recipe.id,
@@ -45,6 +45,11 @@ export default class RecipeDetail extends React.Component {
 
     try {
       const res = await fetch(`http://${this.state.url}:3000/api/users/${this.state.id}/favourites`, options);
+      if (res.status !== 200) {
+        alert('Error saving.');
+        return;
+      }
+
       alert('Successfully saved.');
     } catch (e) {
       alert(e);
