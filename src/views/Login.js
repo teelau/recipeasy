@@ -124,6 +124,8 @@ export default class Login extends React.Component {
       <Image style={elements.logo} source={require('../img/LogoLarge.png')} />
         <View>
           <TextInput //username input box
+            autoCorrect = {false}
+            autoCapitalize = "none"
             underlineColorAndroid = "transparent"
             style = {[styles.inputContainer, { marginBottom: 0}]}   //input text box style
             placeholder = "username or email" //text place holder words
@@ -132,6 +134,7 @@ export default class Login extends React.Component {
             onChangeText ={ (usernameInput) => this.setState({usernameInput}) } //change state 
           />
           <TextInput //password input box
+            secureTextEntry={true}
             underlineColorAndroid = "transparent"
             style = {styles.inputContainer}   //input text box style
             placeholder = "password"          //text place holder words
