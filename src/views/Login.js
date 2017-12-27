@@ -37,7 +37,7 @@ export default class Login extends React.Component {
 
   componentWillMount() {
     // check for id in local storage
-    AsyncStorage.getItem('userId').then((value) => this.setState({userId: value}, () => this.redirectToHome()));
+    AsyncStorage.getItem('userId').then((value) => {if (value !== null && value !== '')  this.setState({userId: value}, () => this.redirectToHome()) });
   }
 
   redirectToHome() {
@@ -58,7 +58,7 @@ export default class Login extends React.Component {
       alert("Username or password cannot be empty");
     } else {
       try {
-      const response = await fetch(`http://${this.state.url}:3000/api/users/login`, {
+      const response = await fetch(`http://${this.state.url}/api/users/login`, {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -93,7 +93,7 @@ export default class Login extends React.Component {
       alert("Username or password cannot be empty");
     } else {
       try {
-        const response = await fetch(`http://${this.state.url}:3000/api/users/create`, {
+        const response = await fetch(`http://${this.state.url}/api/users/create`, {
           method: 'POST',
           headers: {
             'Accept': 'application/json',
