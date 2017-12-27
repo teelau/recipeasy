@@ -5,16 +5,18 @@ import {
   Text,
   Image,
   ScrollView,
-  TouchableOpacity,
-  Platform
+  TouchableOpacity
 } from 'react-native';
+
+var platformModule = require('./platformModule.js');
+var platformModuleInstance = new platformModule();
 
 export default class RecipeDetail extends React.Component {
   constructor(props) {
     super(props);
     this.props = props;
     this.state = {
-      url: Platform.OS === 'ios' ? 'localhost' : '10.0.2.2'
+      url: platformModuleInstance.url()
     };
   }
 
@@ -39,7 +41,7 @@ export default class RecipeDetail extends React.Component {
       // need to acquire user id from somewhere...
       // on login, should receive user id and store it
       const id = 3;
-      const res = await fetch(`http://${this.state.url}:3000/api/users/${id}/favourites`, options);
+      const res = await fetch(`http://${this.state.url}/api/users/${id}/favourites`, options);
     } catch (e) {
       // error handling
       alert(e);
