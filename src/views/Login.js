@@ -40,7 +40,6 @@ export default class Login extends React.Component {
 
   redirectToHome() {
     if (this.state.userId) {
-      console.log(this.state.userId);
       const { navigate } = this.props.navigation;
       navigate('Home');
     }
@@ -91,7 +90,7 @@ export default class Login extends React.Component {
       alert("Username or password cannot be empty");
       return;
     }
-    
+
     try {
       const response = await fetch(`http://${this.state.url}:3000/api/users/create`, {
         method: 'POST',
@@ -124,32 +123,32 @@ export default class Login extends React.Component {
       <Image style={elements.logo} source={require('../img/LogoLarge.png')} />
         <View>
           <TextInput //username input box
-            autoCorrect = {false}
-            autoCapitalize = "none"
-            underlineColorAndroid = "transparent"
-            style = {[styles.inputContainer, { marginBottom: 0}]}   //input text box style
-            placeholder = "username or email" //text place holder words
-            placeholderTextColor = 'white'     //text place holder color
-            selectionColor = 'white'
-            onChangeText ={ (usernameInput) => this.setState({usernameInput}) } //change state 
+            autoCorrect={false}
+            autoCapitalize="none"
+            underlineColorAndroid="transparent"
+            style={[styles.inputContainer, { marginBottom: 0}]}   //input text box style
+            placeholder="username or email" //text place holder words
+            placeholderTextColor='white'     //text place holder color
+            selectionColor='white'
+            onChangeText={(usernameInput) => this.setState({usernameInput})} //change state 
           />
           <TextInput //password input box
             secureTextEntry={true}
-            underlineColorAndroid = "transparent"
-            style = {styles.inputContainer}   //input text box style
-            placeholder = "password"          //text place holder words
-            placeholderTextColor = 'white'     //text place holder color
-            selectionColor = 'white'
-            onChangeText ={ (passwordInput) => this.setState({passwordInput}) } //change state
+            underlineColorAndroid="transparent"
+            style={styles.inputContainer}   //input text box style
+            placeholder="password"          //text place holder words
+            placeholderTextColor='white'     //text place holder color
+            selectionColor='white'
+            onChangeText={(passwordInput) => this.setState({passwordInput})} //change state
           />
         </View>
         <TouchableOpacity
           onPress={() => this.LoginRequest()}>
-          <Text style = {styles.submit}> login </Text>
+          <Text style={styles.submit}> login </Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => this.CreateRequest()}>
-          <Text style = {[styles.submit, {marginBottom : 0}]}> sign up </Text>
+          <Text style={[styles.submit, {marginBottom : 0}]}> sign up </Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
     );
