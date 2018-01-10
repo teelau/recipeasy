@@ -6,8 +6,9 @@ import {
   StyleSheet,
   Image,
   FlatList,
-  TouchableOpacity
-} from 'react-native';
+  TouchableOpacity,
+  Platform,
+  AsyncStorage } from 'react-native';
 import AppStyles from '../../Style';
 
 export default class FavRecipes extends React.Component {
@@ -19,23 +20,29 @@ export default class FavRecipes extends React.Component {
     super(props);
     this.props = props;
     this.state = {
+      url: Platform.OS === 'ios' ? 'localhost' : '10.0.2.2',
       recipes: []
     };
   }
 
   async componentWillMount() {
+    const val = await AsyncStorage.getItem('userId');
+    this.setState({ id: val });
     await this.getFavourites();
   }
 
   async getFavourites() {
+    if (!this.state.id) {
+      alert('no id');
+      return;
+    }
     const options = {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     };
 
     try {
-      const id = this.props.id || 3;
-      const response = await fetch(`http://10.0.2.2:3000/api/users/${id}/favourites`, options);
+      const response = await fetch(`http://${this.state.url}:3000/api/users/${this.state.id}/favourites`, options);
       const results = await response.json();
       this.setState({ recipes: results });
     } catch (e) {
@@ -49,7 +56,7 @@ export default class FavRecipes extends React.Component {
         <FlatList
           data={this.state.recipes}
           keyExtractor={(item, index) => item.id}
-          renderItem={({item, index}) => <Card idx={index} pic={item.pic} name={item.name} onPressItem={() => console.log('henlo')} />}
+          renderItem={({item, index}) => <Card idx={index} pic={item.pic} name={item.recipe_id} onPressItem={() => console.log('henlo')} />}
         />
       </View>
     );
