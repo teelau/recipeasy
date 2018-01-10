@@ -55,8 +55,10 @@ export default class Login extends React.Component {
   async LoginRequest() {
     if (this.state.usernameInput.length == 0 || this.state.passwordInput.length == 0) {
       alert("Username or password cannot be empty");
-    } else {
-      try {
+      return;
+    }
+
+    try {
       const response = await fetch(`http://${this.state.url}:3000/api/users/login`, {
         method: 'POST',
         headers: {
@@ -68,6 +70,7 @@ export default class Login extends React.Component {
           password: this.state.passwordInput,
         })
       });
+
       const responseJson = await response.json();
       if (response.status == 401) {
         alert("Username or password is incorrect");
@@ -79,42 +82,38 @@ export default class Login extends React.Component {
       }
 
     } catch (e) {
-      alert (e);
+      alert(e);
     }
-
-    }
-
-
   }
 
   async CreateRequest() {
     if (this.state.usernameInput.length == 0 || this.state.passwordInput.length == 0) {
       alert("Username or password cannot be empty");
-    } else {
-      try {
-        const response = await fetch(`http://${this.state.url}:3000/api/users/create`, {
-          method: 'POST',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            email: this.state.usernameInput,
-            password: this.state.passwordInput,
-          })
-        });
-
-        if (response.status == 400 || response.status == 500) {
-          alert("Could not create user");
-        } else if (response.status == 200) {
-          alert("Created user");
-        }
-
-      } catch (e) {
-        alert (e);
-      }
+      return;
     }
     
+    try {
+      const response = await fetch(`http://${this.state.url}:3000/api/users/create`, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: this.state.usernameInput,
+          password: this.state.passwordInput,
+        })
+      });
+
+      if (response.status == 400 || response.status == 500) {
+        alert("Could not create user");
+      } else if (response.status == 200) {
+        alert("Created user");
+      }
+
+    } catch (e) {
+      alert (e);
+    }
   }
 
   render() {
