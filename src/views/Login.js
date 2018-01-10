@@ -35,11 +35,12 @@ export default class Login extends React.Component {
 
   componentWillMount() {
     // check for id in local storage
-    AsyncStorage.getItem('userId').then((value) => this.setState({userId: value}, () => this.redirectToHome()));
+    AsyncStorage.getItem('userId').then((value) => this.setState({ userId: value }, () => this.redirectToHome()));
   }
 
   redirectToHome() {
-    if (this.state.userId != '') {
+    if (this.state.userId) {
+      console.log(this.state.userId);
       const { navigate } = this.props.navigation;
       navigate('Home');
     }
