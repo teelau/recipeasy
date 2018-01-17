@@ -11,6 +11,7 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   AsyncStorage } from 'react-native';
+
 import AppStyles from '../../Style';
 import IngredientComponent from '../components/IngredientComponent';
 
