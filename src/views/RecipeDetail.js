@@ -8,15 +8,14 @@ import {
   TouchableOpacity
 } from 'react-native';
 
-var platformModule = require('./platformModule.js');
-var platformModuleInstance = new platformModule();
+import {platformModule} from './platformModule';
 
 export default class RecipeDetail extends React.Component {
   constructor(props) {
     super(props);
     this.props = props;
     this.state = {
-      url: platformModuleInstance.url()
+      url: platformModule(),
     };
   }
 

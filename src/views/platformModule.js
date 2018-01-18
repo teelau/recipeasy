@@ -1,16 +1,10 @@
 import {Platform} from 'react-native';
 
-function platformModule() {
-  
-  this.url = function () {
-    if (__DEV__) {
-    	var url = Platform.OS === 'ios' ? 'localhost:3000' : '10.0.2.2:3000'
-      return url;
-    } else {
+export function platformModule() {
+  if (__DEV__) {
+    return Platform.OS === 'ios' ? 'localhost:3000' : '10.0.2.2:3000'
+  } else {
     // Production
-      return '38.88.75.57';
-    }
+    return '38.88.75.57';
   }
-}
-
-module.exports = platformModule;
+};

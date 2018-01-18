@@ -13,9 +13,7 @@ import {
     AsyncStorage } from 'react-native';
 import AppStyles from '../../Style';
 
-var platformModule = require('./platformModule.js');
-var platformModuleInstance = new platformModule();
-
+import {platformModule} from './platformModule';
 const DEVICE_WIDTH = Dimensions.get(`window`).width;
 
 export default class Login extends React.Component {
@@ -28,7 +26,7 @@ export default class Login extends React.Component {
     this.state = {
       usernameInput : '',
       passwordInput : '',
-      url: platformModuleInstance.url(),
+      url: platformModule(),
       userId: '',
 
     };
