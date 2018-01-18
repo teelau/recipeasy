@@ -10,10 +10,10 @@ import {
     TextInput,
     KeyboardAvoidingView,
     StatusBar,
-    Platform,
     AsyncStorage } from 'react-native';
 import AppStyles from '../../Style';
 
+import {platformModule} from './platformModule';
 const DEVICE_WIDTH = Dimensions.get(`window`).width;
 
 export default class Login extends React.Component {
@@ -26,7 +26,7 @@ export default class Login extends React.Component {
     this.state = {
       usernameInput : '',
       passwordInput : '',
-      url: Platform.OS === 'ios' ? 'localhost' : '10.0.2.2',
+      url: platformModule(),
       userId: '',
 
     };
