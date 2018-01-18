@@ -35,11 +35,11 @@ export default class Login extends React.Component {
 
   componentWillMount() {
     // check for id in local storage
-    AsyncStorage.getItem('userId').then((value) => {if (value !== null && value !== '')  this.setState({userId: value}, () => this.redirectToHome()) });
+    AsyncStorage.getItem('userId').then((value) => this.setState({ userId: value }, () => this.redirectToHome()));
   }
 
   redirectToHome() {
-    if (this.state.userId != '') {
+    if (this.state.userId) {
       const { navigate } = this.props.navigation;
       navigate('Home');
     }
@@ -54,9 +54,11 @@ export default class Login extends React.Component {
   async LoginRequest() {
     if (this.state.usernameInput.length == 0 || this.state.passwordInput.length == 0) {
       alert("Username or password cannot be empty");
-    } else {
-      try {
-      const response = await fetch(`http://${this.state.url}/api/users/login`, {
+      return;
+    }
+
+    try {
+      const response = await fetch(`http://${this.state.url}:3000/api/users/login`, {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -67,6 +69,7 @@ export default class Login extends React.Component {
           password: this.state.passwordInput,
         })
       });
+
       const responseJson = await response.json();
       if (response.status == 401) {
         alert("Username or password is incorrect");
@@ -78,42 +81,38 @@ export default class Login extends React.Component {
       }
 
     } catch (e) {
-      alert (e);
+      alert(e);
     }
-
-    }
-
-
   }
 
   async CreateRequest() {
     if (this.state.usernameInput.length == 0 || this.state.passwordInput.length == 0) {
       alert("Username or password cannot be empty");
-    } else {
-      try {
-        const response = await fetch(`http://${this.state.url}/api/users/create`, {
-          method: 'POST',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            email: this.state.usernameInput,
-            password: this.state.passwordInput,
-          })
-        });
-
-        if (response.status == 400 || response.status == 500) {
-          alert("Could not create user");
-        } else if (response.status == 200) {
-          alert("Created user");
-        }
-
-      } catch (e) {
-        alert (e);
-      }
+      return;
     }
-    
+
+    try {
+      const response = await fetch(`http://${this.state.url}:3000/api/users/create`, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: this.state.usernameInput,
+          password: this.state.passwordInput,
+        })
+      });
+
+      if (response.status == 400 || response.status == 500) {
+        alert("Could not create user");
+      } else if (response.status == 200) {
+        alert("Created user");
+      }
+
+    } catch (e) {
+      alert (e);
+    }
   }
 
   render() {
@@ -124,32 +123,32 @@ export default class Login extends React.Component {
       <Image style={elements.logo} source={require('../img/LogoLarge.png')} />
         <View>
           <TextInput //username input box
-            autoCorrect = {false}
-            autoCapitalize = "none"
-            underlineColorAndroid = "transparent"
-            style = {[styles.inputContainer, { marginBottom: 0}]}   //input text box style
-            placeholder = "username or email" //text place holder words
-            placeholderTextColor = 'white'     //text place holder color
-            selectionColor = 'white'
-            onChangeText ={ (usernameInput) => this.setState({usernameInput}) } //change state 
+            autoCorrect={false}
+            autoCapitalize="none"
+            underlineColorAndroid="transparent"
+            style={[styles.inputContainer, { marginBottom: 0}]}   //input text box style
+            placeholder="username or email" //text place holder words
+            placeholderTextColor='white'     //text place holder color
+            selectionColor='white'
+            onChangeText={(usernameInput) => this.setState({usernameInput})} //change state 
           />
           <TextInput //password input box
             secureTextEntry={true}
-            underlineColorAndroid = "transparent"
-            style = {styles.inputContainer}   //input text box style
-            placeholder = "password"          //text place holder words
-            placeholderTextColor = 'white'     //text place holder color
-            selectionColor = 'white'
-            onChangeText ={ (passwordInput) => this.setState({passwordInput}) } //change state
+            underlineColorAndroid="transparent"
+            style={styles.inputContainer}   //input text box style
+            placeholder="password"          //text place holder words
+            placeholderTextColor='white'     //text place holder color
+            selectionColor='white'
+            onChangeText={(passwordInput) => this.setState({passwordInput})} //change state
           />
         </View>
         <TouchableOpacity
           onPress={() => this.LoginRequest()}>
-          <Text style = {styles.submit}> login </Text>
+          <Text style={styles.submit}> login </Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => this.CreateRequest()}>
-          <Text style = {[styles.submit, {marginBottom : 0}]}> sign up </Text>
+          <Text style={[styles.submit, {marginBottom : 0}]}> sign up </Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
     );

@@ -4,14 +4,15 @@ import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 import { NavigationActions } from "react-navigation";
 
-import Home from './src/views/Home';
 import HomeContainer from './src/containers/HomeContainer';
 import ResultsContainer from './src/containers/ResultsContainer';
 import RecipeDetailContainer from './src/containers/RecipeDetailContainer';
 import FavRecipesContainer from './src/containers/FavRecipesContainer';
+import Home from './src/views/Home';
 import Login from './src/views/Login';
 
 import rootReducer from './src/reducers';
+
 import AppStyles from './Style';
 
 const navigationConfig = {

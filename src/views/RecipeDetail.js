@@ -5,10 +5,10 @@ import {
   Text,
   Image,
   ScrollView,
-  TouchableOpacity
-} from 'react-native';
-
-import {platformModule} from './platformModule';
+  TouchableOpacity,
+  Platform,
+  AsyncStorage } from 'react-native';
+import { platformModule } from './platformModule';
 
 export default class RecipeDetail extends React.Component {
   constructor(props) {
@@ -19,15 +19,23 @@ export default class RecipeDetail extends React.Component {
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.getRecipe();
+    const val = await AsyncStorage.getItem('userId');
+    this.setState({ id: val });
   }
 
   async save() {
+    if (!this.state.id) {
+      alert('no id');
+      return;
+    }
+
+    const recipe = this.state.recipe;
     const body = {
-      name: this.props.recipes || mockRecipe2.label,
-      pic: this.props.recipes || mockRecipe2.image,
-      url: this.props.recipes || mockRecipe2.url,
+      name: recipe.id,
+      pic: recipe.images[0].hostedLargeUrl || recipe.images[0].hostedMediumUrl || recipe.images[0].hostedSmallUrl,
+      url: recipe.source.sourceRecipeUrl
     }
 
     const options = {
@@ -37,12 +45,14 @@ export default class RecipeDetail extends React.Component {
     };
 
     try {
-      // need to acquire user id from somewhere...
-      // on login, should receive user id and store it
-      const id = 3;
-      const res = await fetch(`http://${this.state.url}/api/users/${id}/favourites`, options);
+      const res = await fetch(`http://${this.state.url}/api/users/${this.state.id}/favourites`, options);
+      if (res.status !== 200) {
+        alert('Error saving.');
+        return;
+      }
+
+      alert('Successfully saved.');
     } catch (e) {
-      // error handling
       alert(e);
     }
   }

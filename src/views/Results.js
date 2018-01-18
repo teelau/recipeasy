@@ -75,7 +75,7 @@ export default class Results extends React.Component {
     if (this.state.isLoading) {
       return (
         <View>
-          <Text style={{ alignSelf: 'center' }}>Loading...</Text>
+          <Text style={{ alignSelf: 'center' }}>LOADING...</Text>
         </View>
       );
     }
