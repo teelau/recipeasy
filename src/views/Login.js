@@ -3,7 +3,6 @@ import {
     Dimensions,
     StyleSheet, 
     Image, 
-    Text, 
     View, 
     Button,
     TouchableOpacity,
@@ -12,6 +11,7 @@ import {
     StatusBar,
     AsyncStorage } from 'react-native';
 import AppStyles from '../../Style';
+import Text from './MyAppText';
 
 import {platformModule} from './platformModule';
 const DEVICE_WIDTH = Dimensions.get(`window`).width;

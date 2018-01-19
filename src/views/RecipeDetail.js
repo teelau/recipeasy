@@ -2,12 +2,13 @@ import React from 'react';
 import {
   StyleSheet,
   View,
-  Text,
   Image,
   ScrollView,
   TouchableOpacity,
   Platform,
   AsyncStorage } from 'react-native';
+import { Icon } from 'react-native-elements';
+import Text from './MyAppText';
 import { platformModule } from './platformModule';
 
 export default class RecipeDetail extends React.Component {
@@ -93,17 +94,20 @@ export default class RecipeDetail extends React.Component {
     const imgSrc = mockRecipe.images[0].hostedLargeUrl || mockRecipe.images[0].hostedMediumUrl || mockRecipe.images[0].hostedSmallUrl;
     return (
       <ScrollView style={s.container}>
-        <TouchableOpacity style={{ alignSelf: 'center', flexDirection: 'row' }} onPress={() => this.save()}>
-          <Text style={s.title}>{mockRecipe.name}</Text>
-          <Text style={{ alignSelf: 'center' }}>{String.fromCharCode(0x2665)}</Text>
-        </TouchableOpacity>
+        
         <Image
           style={s.img}
           source={{ uri: mockRecipe.images[0].hostedLargeUrl }}
         />
+        <View style= { {margin: 10}}>
+        <TouchableOpacity style={{  flexDirection: 'column', margin:5 }} >
+          <Text style={s.title}>{mockRecipe.name}</Text>
+          <Icon onPress={() => this.save()} name='favorite' color='red' raised='true'/>
+        </TouchableOpacity>
+        <Text style={s.section}>{mockRecipe.yield || '0 servings'}</Text>
+
         <View style={s.ingredientHeader}>
           <Text style={s.section}>Ingredients</Text>
-          <Text style={s.section}>{mockRecipe.yield || '0 servings'}</Text>
         </View>
         {mockRecipe.ingredientLines.map((ingredient, index) => <Text style={s.item} key={index}>{ingredient}</Text>)}
         <Text style={s.section}>Preparation</Text>
@@ -119,6 +123,7 @@ export default class RecipeDetail extends React.Component {
         <View>
           {/* { this.getNutrients() } */}
         </View>
+        </View>
       </ScrollView>
     );
   }
@@ -130,9 +135,15 @@ const s = StyleSheet.create({
     flexDirection: 'column',
     backgroundColor: '#fff',
   },
+  titleContainer: {
+    margin:'2px',
+    flex: 1,
+    flexDirection:'column',
+
+  },
   title: {
     fontSize: 24,
-    alignSelf: 'center',
+    fontFamily: 'AppleSDGothicNeo-Regular',
   },
   img: {
     height: 220,
@@ -140,14 +151,18 @@ const s = StyleSheet.create({
   },
   ingredientHeader: {
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   section: {
-    margin: 5,
-    fontSize: 20,
+    marginTop: 15,
+    marginLeft: 8,
+    marginRight: 8,
+    fontSize: 14,
   },
   item: {
-    margin: 8,
+    marginTop: 4,
+    marginLeft: 8,
+    marginRight: 8,
     fontSize: 16,
   }
 });
