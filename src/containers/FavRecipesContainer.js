@@ -1,10 +1,18 @@
 import { connect } from 'react-redux';
 import FavRecipes from '../views/FavRecipes';
 
+import { updateRecipes } from '../actions/RecipeActions';
+
 const mapStateToProps = state => {
+	return {};
+};
+
+const mapDispatchToProps = dispatch => {
 	return {
-		id: 3 // need id/token from auth
+		onClickRecipe: recipeObject => {
+			dispatch(updateRecipes(recipeObject));
+		}
 	};
 };
 
-export default connect(mapStateToProps)(FavRecipes);
+export default connect(mapStateToProps, mapDispatchToProps)(FavRecipes);

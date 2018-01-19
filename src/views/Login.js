@@ -10,6 +10,8 @@ import {
     KeyboardAvoidingView,
     StatusBar,
     AsyncStorage } from 'react-native';
+import { NavigationActions } from 'react-navigation';
+
 import AppStyles from '../../Style';
 import Text from './MyAppText';
 
@@ -40,15 +42,20 @@ export default class Login extends React.Component {
 
   redirectToHome() {
     if (this.state.userId) {
-      const { navigate } = this.props.navigation;
-      navigate('Home');
+      const resetAction = NavigationActions.reset({
+        index: 0,
+        actions: [
+          NavigationActions.navigate({ routeName: 'Home' })
+        ]
+      });
+      this.props.navigation.dispatch(resetAction);
     }
   }
 
 
   setUserId(value) {
     AsyncStorage.setItem('userId', value);
-    this.setState({userId: value});
+    this.setState({ userId: value });
   }
 
   async LoginRequest() {
@@ -75,9 +82,7 @@ export default class Login extends React.Component {
         alert("Username or password is incorrect");
       } else if (response.status == 200) {
         // set async store
-        this.setUserId(responseJson.id.toString());
-        const { navigate } = this.props.navigation;
-        navigate('Home');
+        this.redirectToHome();
       }
 
     } catch (e) {

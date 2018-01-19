@@ -1,8 +1,7 @@
 import { connect } from 'react-redux';
-//import * as actions from '../actions';
 import Results from '../views/Results';
 
-import { updateRecipes } from '../actions/RecipeActions' 
+import { updateRecipes } from '../actions/RecipeActions'; 
 
 const mapStateToProps = state => {
 	return {

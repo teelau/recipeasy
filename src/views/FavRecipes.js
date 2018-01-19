@@ -50,13 +50,19 @@ export default class FavRecipes extends React.Component {
     }
   }
 
+  onPress(item) {
+    this.props.onClickRecipe({ id: item.recipe_id });
+    const { navigate } = this.props.navigation;
+    navigate('RecipeDetail');
+  }
+
   render() {
     return (
       <View style={styles.container}>
         <FlatList
           data={this.state.recipes}
           keyExtractor={(item, index) => item.id}
-          renderItem={({item, index}) => <Card idx={index} pic={item.pic} name={item.recipe_id} onPressItem={() => console.log('henlo')} />}
+          renderItem={({item, index}) => <Card idx={index} pic={item.pic} name={item.recipe_id} onPressItem={() => this.onPress(item)} />}
         />
       </View>
     );
