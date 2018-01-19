@@ -9,13 +9,14 @@ import {
   AsyncStorage } from 'react-native';
 import { Icon } from 'react-native-elements';
 import Text from './MyAppText';
+import { platformModule } from './platformModule';
 
 export default class RecipeDetail extends React.Component {
   constructor(props) {
     super(props);
     this.props = props;
     this.state = {
-      url: Platform.OS === 'ios' ? 'localhost' : '10.0.2.2'
+      url: platformModule(),
     };
   }
 
@@ -45,7 +46,7 @@ export default class RecipeDetail extends React.Component {
     };
 
     try {
-      const res = await fetch(`http://${this.state.url}:3000/api/users/${this.state.id}/favourites`, options);
+      const res = await fetch(`http://${this.state.url}/api/users/${this.state.id}/favourites`, options);
       if (res.status !== 200) {
         alert('Error saving.');
         return;

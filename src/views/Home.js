@@ -75,6 +75,7 @@ export default class Home extends React.Component {
 
           <View style={styles.resultsContainer}>
             <TextInput
+              autoCapitalize = "none"
               value={this.state.currentText}
               style={elements.searchBar}
               onChangeText={(t) => this.setState({ currentText: t })}
