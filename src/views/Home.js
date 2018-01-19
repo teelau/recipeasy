@@ -4,7 +4,6 @@ import {
   TextInput,
   StyleSheet,
   Image,
-  Text,
   View,
   FlatList,
   Button,
@@ -13,6 +12,7 @@ import {
   AsyncStorage } from 'react-native';
 import AppStyles from '../../Style';
 import IngredientComponent from '../components/IngredientComponent';
+import Text from './MyAppText';
 
 const DEVICE_WIDTH = Dimensions.get(`window`).width;
 const MOCK_INGREDIENTS = [{ label: 'green peppers' }, { label: 'eggs' }, { label: 'onion' }, { label: 'cheese' }]

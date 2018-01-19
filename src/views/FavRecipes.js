@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   View,
-  Text,
   Button,
   StyleSheet,
   Image,
@@ -10,6 +9,7 @@ import {
   Platform,
   AsyncStorage } from 'react-native';
 import AppStyles from '../../Style';
+import Text from './MyAppText';
 
 export default class FavRecipes extends React.Component {
   static navigationOptions = {

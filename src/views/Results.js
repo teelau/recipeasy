@@ -2,12 +2,12 @@ import React from 'react';
 import {
   StyleSheet,
   View,
-  Text,
   Image,
   FlatList,
   TouchableOpacity
 } from 'react-native';
 import AppStyles from '../../Style';
+import Text from './MyAppText';
 
 import QueryString from 'query-string';
 
