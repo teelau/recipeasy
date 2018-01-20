@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Text } from 'react-native';
-import { platformFont } from './platformModule';
+import { platformFont } from '../util/platformModule';
 
 
 export default class MyAppText extends Component {
