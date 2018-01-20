@@ -12,8 +12,9 @@ import {
   AsyncStorage } from 'react-native';
 
 import AppStyles from '../../Style';
+
 import IngredientComponent from '../components/IngredientComponent';
-import Text from './MyAppText';
+import Text from '../components/MyAppText';
 
 const DEVICE_WIDTH = Dimensions.get(`window`).width;
 const MOCK_INGREDIENTS = [{ label: 'green peppers' }, { label: 'eggs' }, { label: 'onion' }, { label: 'cheese' }]
@@ -26,10 +27,6 @@ export default class Home extends React.Component {
       ingredients: []
     };
     this.props = props;
-  }
-
-  parseIngredients(ingredientList) {
-    return "TEST TEST";
   }
 
   onPress(text) {
@@ -46,10 +43,10 @@ export default class Home extends React.Component {
   onEnter(text) {
     this.setState({ currentText: '' });
     text = text.trim();
-    if(text.length != 0){
+    if (text.length != 0){
       let newIngredients = this.state.ingredients;
       newIngredients.push(text);
-      this.setState({ingredients: newIngredients});
+      this.setState({ ingredients: newIngredients });
     }
   }
 
@@ -62,9 +59,9 @@ export default class Home extends React.Component {
   }
 
   deleteIngredient(ingredient) {
-    let index = this.state.ingredients.indexOf(ingredient);
+    const index = this.state.ingredients.indexOf(ingredient);
     this.state.ingredients.splice(index, 1);
-    this.setState({ingredients: this.state.ingredients});
+    this.setState({ ingredients: this.state.ingredients });
   }
 
   render() {

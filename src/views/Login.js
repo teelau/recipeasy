@@ -13,9 +13,9 @@ import {
 import { NavigationActions } from 'react-navigation';
 
 import AppStyles from '../../Style';
-import Text from './MyAppText';
+import Text from '../components/MyAppText';
 
-import { platformModule } from './platformModule';
+import { platformModule } from '../util/platformModule';
 const DEVICE_WIDTH = Dimensions.get(`window`).width;
 
 export default class Login extends React.Component {
