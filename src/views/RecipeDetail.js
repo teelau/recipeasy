@@ -8,8 +8,8 @@ import {
   Platform,
   AsyncStorage } from 'react-native';
 import { Icon } from 'react-native-elements';
-import Text from './MyAppText';
-import { platformModule } from './platformModule';
+import Text from '../components/MyAppText';
+import { platformModule } from '../util/platformModule';
 
 export default class RecipeDetail extends React.Component {
   constructor(props) {

@@ -9,7 +9,8 @@ import {
   Platform,
   AsyncStorage } from 'react-native';
 import AppStyles from '../../Style';
-import Text from './MyAppText';
+
+import Text from '../components/MyAppText';
 
 export default class FavRecipes extends React.Component {
   static navigationOptions = {

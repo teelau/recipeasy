@@ -7,7 +7,7 @@ import {
   TouchableOpacity
 } from 'react-native';
 import AppStyles from '../../Style';
-import Text from './MyAppText';
+import Text from '../components/MyAppText';
 
 import QueryString from 'query-string';
 
