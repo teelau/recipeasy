@@ -129,11 +129,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   ingredientContainer: {
-    flex: 1,
+    flexWrap: 'wrap',
     flexDirection: 'row',
     backgroundColor: AppStyles.color.darkPrimaryColor,
-    alignItems: 'flex-start',
-    justifyContent: 'space-between',
+    //alignItems: 'flex-start',
+    //justifyContent: 'space-between',
     width: 300,
   },
   searchContainer: {
@@ -146,6 +146,9 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column'
   },
+  buttonsContainer: {
+    alignItems: 'flex-end',
+  }
 });
 
 const elements = StyleSheet.create({

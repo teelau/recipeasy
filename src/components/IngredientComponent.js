@@ -27,7 +27,7 @@ export default class IngredientComponent extends React.Component {
 
 const styles = StyleSheet.create({
   ingredientContainer: {
-    flex: 1,
+    //flex: 1,
     borderColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
