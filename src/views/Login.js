@@ -15,7 +15,7 @@ import { NavigationActions } from 'react-navigation';
 import AppStyles from '../../Style';
 import Text from './MyAppText';
 
-import {platformModule} from './platformModule';
+import { platformModule } from './platformModule';
 const DEVICE_WIDTH = Dimensions.get(`window`).width;
 
 export default class Login extends React.Component {
@@ -36,8 +36,9 @@ export default class Login extends React.Component {
   }
 
   componentWillMount() {
+    console.log(this.state.url);
     // check for id in local storage
-    AsyncStorage.getItem('userId').then((value) => this.setState({ userId: value }, () => this.redirectToHome()));
+    //AsyncStorage.getItem('userId').then((value) => this.setState({ userId: value }, () => this.redirectToHome()));
   }
 
   redirectToHome() {
@@ -65,7 +66,7 @@ export default class Login extends React.Component {
     }
 
     try {
-      const response = await fetch(`http://${this.state.url}:3000/api/users/login`, {
+      const response = await fetch(`http://${this.state.url}/api/users/login`, {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -97,7 +98,7 @@ export default class Login extends React.Component {
     }
 
     try {
-      const response = await fetch(`http://${this.state.url}:3000/api/users/create`, {
+      const response = await fetch(`http://${this.state.url}/api/users/create`, {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
