@@ -36,9 +36,8 @@ export default class Login extends React.Component {
   }
 
   componentWillMount() {
-    console.log(this.state.url);
     // check for id in local storage
-    //AsyncStorage.getItem('userId').then((value) => this.setState({ userId: value }, () => this.redirectToHome()));
+    AsyncStorage.getItem('userId').then((value) => this.setState({ userId: value }, () => this.redirectToHome()));
   }
 
   redirectToHome() {
@@ -83,6 +82,7 @@ export default class Login extends React.Component {
         alert("Username or password is incorrect");
       } else if (response.status == 200) {
         // set async store
+        this.setUserId(responseJson.id.toString());
         this.redirectToHome();
       }
 
