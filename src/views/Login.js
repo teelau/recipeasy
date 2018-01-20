@@ -38,7 +38,7 @@ export default class Login extends React.Component {
   componentWillMount() {
     console.log(this.state.url);
     // check for id in local storage
-    //AsyncStorage.getItem('userId').then((value) => this.setState({ userId: value }, () => this.redirectToHome()));
+    AsyncStorage.getItem('userId').then((value) => this.setState({ userId: value }, () => this.redirectToHome()));
   }
 
   redirectToHome() {
