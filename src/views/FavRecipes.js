@@ -64,7 +64,7 @@ export default class FavRecipes extends React.Component {
         <FlatList
           data={this.state.recipes}
           keyExtractor={(item, index) => item.id}
-          renderItem={({item, index}) => <Card idx={index} pic={item.pic} name={item.recipe_id} onPressItem={() => this.onPress(item)} />}
+          renderItem={({item, index}) => <Card idx={index} pic={item.pic} name={item.name} onPressItem={() => this.onPress(item)} />}
         />
       </View>
     );

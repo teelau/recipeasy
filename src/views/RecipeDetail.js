@@ -34,7 +34,8 @@ export default class RecipeDetail extends React.Component {
 
     const recipe = this.state.recipe;
     const body = {
-      name: recipe.id,
+      name: recipe.name,
+      recipeId: recipe.id,
       pic: recipe.images[0].hostedLargeUrl || recipe.images[0].hostedMediumUrl || recipe.images[0].hostedSmallUrl,
       url: recipe.source.sourceRecipeUrl
     }
@@ -102,7 +103,7 @@ export default class RecipeDetail extends React.Component {
         <View style= { {margin: 10}}>
         <TouchableOpacity style={{  flexDirection: 'column', margin:5 }} >
           <Text style={s.title}>{mockRecipe.name}</Text>
-          <Icon onPress={() => this.save()} name='favorite' color='red' raised='true'/>
+          <Icon onPress={() => this.save()} name='favorite' color='red' raised={true}/>
         </TouchableOpacity>
         <Text style={s.section}>{mockRecipe.yield || '0 servings'}</Text>
 
