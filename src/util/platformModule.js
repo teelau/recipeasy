@@ -1,4 +1,4 @@
-import {Platform} from 'react-native';
+import { Platform } from 'react-native';
 
 export function platformModule() {
   if (__DEV__) {
@@ -8,3 +8,7 @@ export function platformModule() {
     return '38.88.75.57';
   }
 };
+
+export function platformFont() {
+	return Platform.OS === 'ios' ? 'AppleSDGothicNeo-Regular' : 'Roboto'
+}

@@ -144,7 +144,6 @@ const s = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    fontFamily: 'AppleSDGothicNeo-Regular',
   },
   img: {
     height: 220,

@@ -65,7 +65,7 @@ export default class Login extends React.Component {
     }
 
     try {
-      const response = await fetch(`http://${this.state.url}:3000/api/users/login`, {
+      const response = await fetch(`http://${this.state.url}/api/users/login`, {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -82,6 +82,7 @@ export default class Login extends React.Component {
         alert("Username or password is incorrect");
       } else if (response.status == 200) {
         // set async store
+        this.setUserId(responseJson.id.toString());
         this.redirectToHome();
       }
 
@@ -97,7 +98,7 @@ export default class Login extends React.Component {
     }
 
     try {
-      const response = await fetch(`http://${this.state.url}:3000/api/users/create`, {
+      const response = await fetch(`http://${this.state.url}/api/users/create`, {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
