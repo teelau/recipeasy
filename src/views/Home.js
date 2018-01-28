@@ -71,18 +71,15 @@ export default class Home extends React.Component {
           <Image style={elements.logo} source={require('../img/LogoLarge.png')} />
           <Text style={elements.hint}>Add some ingredients!</Text>
 
-          <View style={styles.resultsContainer}>
-            <TextInput
-              autoCapitalize = "none"
-              value={this.state.currentText}
-              style={elements.searchBar}
-              onChangeText={(t) => this.setState({ currentText: t })}
-              onSubmitEditing={() => this.onEnter(this.state.currentText)}
-              placeholder='Search Ingredients...'
-              underlineColorAndroid='transparent'
-            />
-            
-          </View>
+          <TextInput
+            autoCapitalize = "none"
+            value={this.state.currentText}
+            style={elements.searchBar}
+            onChangeText={(t) => this.setState({ currentText: t })}
+            onSubmitEditing={() => this.onEnter(this.state.currentText)}
+            placeholder='Search Ingredients...'
+            underlineColorAndroid='transparent'
+          />
 
           <View style = {styles.ingredientContainer}>
             {this.state.ingredients.map((ingredient, index) => 
@@ -91,7 +88,7 @@ export default class Home extends React.Component {
                 key={index} 
                 delete={(ingredient) => this.deleteIngredient(ingredient)}/>)}
           </View>
-          
+
         </View>
 
         <View>
@@ -129,11 +126,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   ingredientContainer: {
-    flex: 1,
+    marginTop: 2,
+    flexWrap: 'wrap',
     flexDirection: 'row',
     backgroundColor: AppStyles.color.darkPrimaryColor,
-    alignItems: 'flex-start',
-    justifyContent: 'space-between',
     width: 300,
   },
   searchContainer: {
